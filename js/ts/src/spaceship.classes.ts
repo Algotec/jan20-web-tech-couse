@@ -1,9 +1,5 @@
-import {Complexity, Dollars, IEngine, ISpaceship, Kilograms} from './spaceship.interfaces';
+import {Complexity, Dollars, IEngine, ISpaceship, Kilograms, OverWeightError} from './spaceship.interfaces';
 import {makeHyperDriveEngine, makeRocketWithLiquidFuel, makeRocketWithSolidFuel} from './fuel-supplies';
-
-
-
-
 
 
 export abstract class BaseSpaceShip implements ISpaceship {
