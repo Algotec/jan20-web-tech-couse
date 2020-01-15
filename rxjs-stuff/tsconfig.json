@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "outFile": "dist.js",
+    "module": "system",
+    "moduleResolution": "node",
+    "baseUrl": "src",
+    "rootDir": "src",
+    "target": "es2019",
+    "lib": [
+      "esnext",
+      "dom"
+    ],
+    "types": [
+      "rxjs"
+    ],
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "esModuleInterop": true,
+    "inlineSourceMap": true,
+    "inlineSources": true
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}

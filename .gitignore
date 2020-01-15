@@ -2,3 +2,5 @@
 temp
 js/ts/dist
 dist
+/rxjs-stuff/dist.js
+node_modules

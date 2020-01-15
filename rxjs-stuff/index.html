@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RXJS Demo</title>
+    <style type="text/css">
+        body {
+            margin: 20%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #btn {
+            color: brown;
+            background: darkorange;
+            border: 3px solid #557088;
+            font-size: 24px;
+            font-family: cursive;
+            padding: 20px;
+            border-radius: 16px;
+        }
+
+        button#btn:hover {
+            color: deeppink;
+            border-color: blueviolet;
+        }
+
+        #pre {
+            min-width: 20vw;
+            min-height: 20vh;
+        }
+    </style>
+</head>
+<body>
+<button id="btn">Click Me</button>
+<pre id="output"></pre>
+<script src="./node_modules/systemjs/dist/system.js"></script>
+<script src="./node_modules/systemjs/dist/extras/named-register.js"></script>
+<script type="systemjs-importmap">
+    {
+      "imports": {
+        "rxjs": "./node_modules/rxjs/bundles/rxjs.umd.js"
+      }
+    }
+
+
+
+</script>
+<script>
+	System.import('rxjs')
+		.then(() => System.import('./dist.js'))
+		.catch(console.error.bind(console))
+</script>
+</body>
+</html>

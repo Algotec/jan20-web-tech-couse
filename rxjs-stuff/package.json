@@ -1,0 +1,11 @@
+{
+  "name": "rxjs-stuff",
+  "version": "1.0.0",
+  "dependencies": {
+    "rxjs": "^6.5.4",
+    "systemjs": "^6.1.9"
+  },
+  "devDependencies": {
+    "typescript": "^3.5.3"
+  }
+}
