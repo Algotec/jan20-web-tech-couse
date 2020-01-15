@@ -35,13 +35,14 @@
 </head>
 <body>
 <button id="btn">Click Me</button>
-<pre id="output"></pre>
+<pre id="pre"></pre>
 <script src="./node_modules/systemjs/dist/system.js"></script>
 <script src="./node_modules/systemjs/dist/extras/named-register.js"></script>
 <script type="systemjs-importmap">
     {
       "imports": {
-        "rxjs": "./node_modules/rxjs/bundles/rxjs.umd.js"
+        "rxjs": "./node_modules/rxjs/bundles/rxjs.umd.js",
+        "rxjs/operators": "./node_modules/rxjs/bundles/rxjs.umd.js"
       }
     }
 
@@ -49,7 +50,8 @@
 
 </script>
 <script>
-	System.import('rxjs')
+	System.import('rxjs').then(()=>
+	System.import('rxjs/operators'))
 		.then(() => System.import('./dist.js'))
 		.catch(console.error.bind(console))
 </script>
