@@ -14,15 +14,19 @@ const output = document.querySelector('#output');
 
 const start$ = fromEvent(startButton, 'click');
 const stop$ = fromEvent(stopButton, 'click');
+const initial = 0;
+const inc = (i: number) => i + 1;
+
 start$.pipe(switchMap((click: Event) => {
 		//switch map means that upon each click (previous stream value)  we start a new stream and subscribe to its result
 		// old steams are unsubscribed.
-		return interval(1000).pipe(map((i) => {
-				return i.toString()
-			}),
-			takeUntil(stop$)
-		)
-	})
-).subscribe((result: string) => {
-	output.innerHTML = result;
+		return interval(1000)
+			.pipe(mapTo(inc),
+				takeUntil(stop$)
+			)
+	}),
+	scan((acc,fn)=>fn(acc),0),
+	startWith(0),
+).subscribe((result: number) => {
+	output.innerHTML = result.toString();
 })
