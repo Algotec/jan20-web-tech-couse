@@ -12,13 +12,17 @@ const stopButton = document.querySelector('#stop');
 const resetButton = document.querySelector('#reset');
 const output = document.querySelector('#output');
 
-
-fromEvent(startButton, 'click').pipe(switchMap((click: Event) => {
-	//switch map means that upon each click (previous stream value)  we start a new stream and subscribe to its result
-	// old steams are unsubscribed.
-	return interval(1000).pipe(map((i) => {
-		return i.toString()
-	}))
-})).subscribe((result: string) => {
+const start$ = fromEvent(startButton, 'click');
+const stop$ = fromEvent(stopButton, 'click');
+start$.pipe(switchMap((click: Event) => {
+		//switch map means that upon each click (previous stream value)  we start a new stream and subscribe to its result
+		// old steams are unsubscribed.
+		return interval(1000).pipe(map((i) => {
+				return i.toString()
+			}),
+			takeUntil(stop$)
+		)
+	})
+).subscribe((result: string) => {
 	output.innerHTML = result;
 })
