@@ -16,7 +16,7 @@
             position: relative;
         }
 
-        #btn {
+        button {
             color: brown;
             background: darkorange;
             border: 3px solid #557088;
@@ -31,7 +31,10 @@
             border-color: blueviolet;
         }
 
-        #pre {
+        #output {
+            font-size: 85px;
+            text-align: center;
+            padding-top: 30%;
             min-width: 20vw;
             min-height: 20vh;
         }
@@ -40,6 +43,17 @@
 <body>
 <img id='logo' width="300" alt="Angular Logo"
      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="/>
+
+<div id="timer">
+    <button id="start">Start</button>
+    <button id="stop">Stop</button>
+    <div id="output"></div>
+
+    <button id="reset">Reset</button>
+    <button id="half">Half</button>
+    <button id="quarter">Quarter</button>
+</div>
+
 
 <script src="./node_modules/systemjs/dist/system.js"></script>
 <script src="./node_modules/systemjs/dist/extras/named-register.js"></script>
@@ -53,10 +67,12 @@
 
 
 
+
+
 </script>
 <script>
-	System.import('rxjs').then(()=>
-	System.import('rxjs/operators'))
+	System.import('rxjs').then(() =>
+		System.import('rxjs/operators'))
 		.then(() => System.import('./dist.js'))
 		.catch(console.error.bind(console))
 </script>
