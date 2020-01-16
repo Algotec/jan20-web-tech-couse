@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-planets-view',
@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PlanetsViewComponent implements OnInit {
   planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
-  constructor() { }
+
+  constructor() {
+  }
+
+  plantClicked(planet: string) {
+    console.log(planet, 'clicked');
+  }
 
   ngOnInit() {
   }
