@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
+import {PlanetsService} from '../common/planets.service';
+import {IPlanetData} from '../common/common.types';
 
 @Component({
   selector: 'app-planets-view',
@@ -7,7 +8,10 @@ import {Router} from '@angular/router';
   styleUrls: ['./planets-view.component.scss']
 })
 export class PlanetsViewComponent implements OnInit {
-  planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
+  planets: Promise<IPlanetData[]> = this.planetsService.getAll();
+
+  constructor(private planetsService: PlanetsService) {
+  }
 
 
   ngOnInit() {

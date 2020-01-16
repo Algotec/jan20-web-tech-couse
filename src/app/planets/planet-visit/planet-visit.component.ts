@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {planetRouteData} from '../common/common.types';
+import {IPlanetData, planetRouteData} from '../common/common.types';
+import {PlanetsService} from '../common/planets.service';
 
 @Component({
   selector: 'app-planet-visit',
@@ -8,17 +9,17 @@ import {planetRouteData} from '../common/common.types';
   styleUrls: ['./planet-visit.component.scss']
 })
 export class PlanetVisitComponent implements OnInit {
-  private planet: string;
+  private planet$: Promise<IPlanetData>;
   astronautName: string;
 
-  constructor(private activatedRoute: ActivatedRoute) {
-    this.planet = this.activatedRoute.snapshot.params[planetRouteData];
+  constructor(private activatedRoute: ActivatedRoute, private planetsService: PlanetsService) {
+    this.planet$ = planetsService.getByName$(this.activatedRoute.snapshot.params[planetRouteData]);
   }
 
   ngOnInit() {
   }
 
   sign($event: string) {
-    console.log($event,'has signed!');
+    console.log($event, 'has signed!');
   }
 }

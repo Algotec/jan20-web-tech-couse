@@ -1,11 +1,13 @@
-<ng-container *ngIf="planet === 'Earth' else otherPlanets">
-  <app-headquarters></app-headquarters>
+<ng-container *ngIf="planet$|async as planet">
+  <ng-container *ngIf="planet === 'Earth' else otherPlanets">
+    <app-headquarters></app-headquarters>
+  </ng-container>
+  <ng-template #otherPlanets>
+    <section class="planet-wrapper">
+      <p>{{astronautName}} visiting {{planet.name}}</p>
+      <app-planet [showBox]="false" [planet]="planet"></app-planet>
+      <app-planet-visit-form (sign)="sign($event)" (currentName)="astronautName = $event"></app-planet-visit-form>
+    </section>
+  </ng-template>
+  <button class="nav-button" routerLink="/">Back</button>
 </ng-container>
-<ng-template #otherPlanets>
-  <section class="planet-wrapper">
-    <p>{{astronautName}} visiting {{planet}}</p>
-    <app-planet [showBox]="false" [planetName]="planet|lowercase"></app-planet>
-    <app-planet-visit-form (sign)="sign($event)" (currentName)="astronautName = $event"></app-planet-visit-form>
-  </section>
-</ng-template>
-<button class="nav-button" routerLink="/">Back</button>

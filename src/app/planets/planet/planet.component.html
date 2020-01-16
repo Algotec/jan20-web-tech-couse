@@ -1,5 +1,5 @@
 <div class="planet-image">
-  <img [src]="'../../../assets/svgs/' + planetName + '.svg'" [alt]="planetName">
+  <img [src]="getPlanetImage()" [alt]="planet.name">
 </div>
-
-<h2 class="planet-name">{{planetName}}</h2>
+<h2 class="planet-name">{{planet.name|lowercase}}</h2>
+<h5 class="planet-description" [style.color]="getPlanetColor(planet.distance)">{{planet.distance}} AU units away</h5>

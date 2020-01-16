@@ -15,6 +15,15 @@ export class PlanetsService {
   }
 
 
+  getByName$(planetName: string): Promise<IPlanetData> {
+    return this.getAll()
+    .then((planetList) => {
+      return planetList.find((planet: IPlanetData) => {
+        return planet.name === planetName;
+      })});
+
+  }
+
   constructor(private httpClient: HttpClient) {
   }
 }
