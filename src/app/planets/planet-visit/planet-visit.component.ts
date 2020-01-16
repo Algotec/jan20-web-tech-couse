@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {IPlanetData, planetRouteData} from '../common/common.types';
 import {PlanetsService} from '../common/planets.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-planet-visit',
@@ -9,7 +10,7 @@ import {PlanetsService} from '../common/planets.service';
   styleUrls: ['./planet-visit.component.scss']
 })
 export class PlanetVisitComponent implements OnInit {
-  private planet$: Promise<IPlanetData>;
+  private planet$: Observable<IPlanetData>;
   astronautName: string;
 
   constructor(private activatedRoute: ActivatedRoute, private planetsService: PlanetsService) {

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {PlanetsService} from '../common/planets.service';
 import {IPlanetData} from '../common/common.types';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-planets-view',
@@ -8,7 +9,7 @@ import {IPlanetData} from '../common/common.types';
   styleUrls: ['./planets-view.component.scss']
 })
 export class PlanetsViewComponent implements OnInit {
-  planets: Promise<IPlanetData[]> = this.planetsService.getAll();
+  planets: Observable<IPlanetData[]> = this.planetsService.getAll();
 
   constructor(private planetsService: PlanetsService) {
   }
