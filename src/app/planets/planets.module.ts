@@ -6,6 +6,7 @@ import {RouterModule, Routes} from '@angular/router';
 import {PlanetVisitComponent} from './planet-visit/planet-visit.component';
 import {planetRouteData} from './common/common.types';
 import {PlanetVisitFormComponent} from './planet-visit/planet-visit-form/planet-visit-form.component';
+import {SharedModule} from '../shared/shared.module';
 
 
 const planetRoutes: Routes = [
@@ -18,6 +19,7 @@ const planetRoutes: Routes = [
   exports: [PlanetsViewComponent],
   imports: [
     CommonModule,
+    SharedModule,
     RouterModule.forChild(planetRoutes)
   ]
 })
