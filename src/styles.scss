@@ -1,1 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-size: 36px;
+}
+
+main, p, h1, h2, h3, h4, h5, h6 {
+  color: white;
+  font-family: 'Rajdhani', sans-serif;
+  letter-spacing: 4px;
+}
+
+.section-label {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 36px;
+  color: white;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
+}
+
+
