@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostBinding, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-planet',
@@ -7,7 +7,7 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class PlanetComponent implements OnInit {
   @Input() planetName: string;
-
+  @HostBinding('class.showBox') @Input() showBox: boolean = true;
   constructor() { }
 
   ngOnInit() {

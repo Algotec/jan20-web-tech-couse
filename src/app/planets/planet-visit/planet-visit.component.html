@@ -1,3 +1,7 @@
-<p>{{astronautName}} visiting {{planet}}</p>
-<app-planet-visit-form (sign)="sign($event)" (currentName)="astronautName = $event"></app-planet-visit-form>
+<section class="planet-wrapper">
+  <p>{{astronautName}} visiting {{planet}}</p>
+  <app-planet [showBox]="false" [planetName]="planet|lowercase"></app-planet>
+  <app-planet-visit-form (sign)="sign($event)" (currentName)="astronautName = $event"></app-planet-visit-form>
+</section>
+
 <button class="nav-button" routerLink="/">Back</button>
