@@ -10,13 +10,6 @@ export class PlanetsViewComponent implements OnInit {
   planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 
 
-  constructor(private router: Router) {
-  }
-
-  plantClicked(planet: string) {
-   this.router.navigate(['planet',planet]);
-  }
-
   ngOnInit() {
   }
 
