@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-planets-view',
@@ -8,11 +9,12 @@ import {Component, OnInit} from '@angular/core';
 export class PlanetsViewComponent implements OnInit {
   planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
 
-  constructor() {
+
+  constructor(private router: Router) {
   }
 
   plantClicked(planet: string) {
-    console.log(planet, 'clicked');
+   this.router.navigate(['planet',planet]);
   }
 
   ngOnInit() {
