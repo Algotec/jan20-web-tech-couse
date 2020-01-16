@@ -9,6 +9,7 @@ import {planetRouteData} from '../common/common.types';
 })
 export class PlanetVisitComponent implements OnInit {
   private planet: string;
+  astronautName: string;
 
   constructor(private activatedRoute: ActivatedRoute) {
     this.planet = this.activatedRoute.snapshot.params[planetRouteData];
@@ -17,4 +18,7 @@ export class PlanetVisitComponent implements OnInit {
   ngOnInit() {
   }
 
+  sign($event: string) {
+    console.log($event,'has signed!');
+  }
 }

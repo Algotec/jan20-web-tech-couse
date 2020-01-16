@@ -1,0 +1,3 @@
+<label>Sign your name</label>
+<input #nameInput type="text" (input)="onInput($event.target.value)" (keydown.enter)="onEnter($event.target.value)"/>
+<button class="nav-button" (click)="onEnter(nameInput.value)">Sign</button>

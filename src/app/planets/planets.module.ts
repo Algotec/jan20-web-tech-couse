@@ -5,6 +5,7 @@ import {PlanetComponent} from './planet/planet.component';
 import {RouterModule, Routes} from '@angular/router';
 import {PlanetVisitComponent} from './planet-visit/planet-visit.component';
 import {planetRouteData} from './common/common.types';
+import {PlanetVisitFormComponent} from './planet-visit/planet-visit-form/planet-visit-form.component';
 
 
 const planetRoutes: Routes = [
@@ -13,7 +14,7 @@ const planetRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PlanetsViewComponent, PlanetComponent, PlanetVisitComponent],
+  declarations: [PlanetsViewComponent, PlanetComponent, PlanetVisitComponent, PlanetVisitFormComponent],
   exports: [PlanetsViewComponent],
   imports: [
     CommonModule,
