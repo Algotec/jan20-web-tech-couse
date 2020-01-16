@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./planets-view.component.scss']
 })
 export class PlanetsViewComponent implements OnInit {
-
+  planets = ['Mercury', 'Venus', 'Earth', 'Mars', 'Jupiter', 'Saturn', 'Uranus', 'Neptune'];
   constructor() { }
 
   ngOnInit() {

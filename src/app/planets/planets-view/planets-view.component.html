@@ -1,16 +1,3 @@
-
-<h2 class="section-label">Planets</h2>
-
 <div class="planets-container">
-
-  <app-planet [planetName]="'mercury'"></app-planet>
-  <app-planet [planetName]="'venus'"></app-planet>
-  <app-planet [planetName]="'earth'"></app-planet>
-  <app-planet [planetName]="'mars'"></app-planet>
-  <app-planet [planetName]="'saturn'"></app-planet>
-  <app-planet [planetName]="'jupiter'"></app-planet>
-  <app-planet [planetName]="'neptune'"></app-planet>
-  <app-planet [planetName]="'uranus'"></app-planet>
-
+  <app-planet *ngFor="let planet of planets" [planetName]="planet"></app-planet>
 </div>
-
