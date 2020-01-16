@@ -1,4 +1,6 @@
-import {Component, HostListener, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {animationFrameScheduler, fromEvent} from 'rxjs';
+import {map, subscribeOn} from 'rxjs/operators';
 
 
 @Component({
@@ -13,11 +15,14 @@ export class HeaderComponent implements OnInit {
 
   showBlackBg: boolean = false;
 
-  @HostListener('window:scroll') onScrollEvent(event: Event) {
-    this.showBlackBg = (window.scrollY > 120)
-  }
 
   ngOnInit() {
+    fromEvent(window, 'scroll').pipe(
+      subscribeOn(animationFrameScheduler),
+      map(() => window.scrollY > 120),
+    ).subscribe((showBg: boolean) => {
+      this.showBlackBg = showBg;
+    });
   }
 
 }
