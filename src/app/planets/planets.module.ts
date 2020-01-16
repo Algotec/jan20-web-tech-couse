@@ -7,6 +7,7 @@ import {PlanetVisitComponent} from './planet-visit/planet-visit.component';
 import {planetRouteData} from './common/common.types';
 import {PlanetVisitFormComponent} from './planet-visit/planet-visit-form/planet-visit-form.component';
 import {SharedModule} from '../shared/shared.module';
+import { HeadquartersComponent } from './headquarters/headquarters.component';
 
 
 const planetRoutes: Routes = [
@@ -15,7 +16,7 @@ const planetRoutes: Routes = [
 ];
 
 @NgModule({
-  declarations: [PlanetsViewComponent, PlanetComponent, PlanetVisitComponent, PlanetVisitFormComponent],
+  declarations: [PlanetsViewComponent, PlanetComponent, PlanetVisitComponent, PlanetVisitFormComponent,HeadquartersComponent],
   exports: [PlanetsViewComponent],
   imports: [
     CommonModule,
