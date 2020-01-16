@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redux</title>
+  <script src="https://wzrd.in/standalone/expect@latest"></script>
+  <script src="https://wzrd.in/standalone/deep-freeze@latest"></script>
+</head>
+<body>
+
+<script>
+
+// Also doable with concat() and slice(),
+// But much nicer with ES6 array spread operator
+// use jsbin with babel for object spread operator'
+
+const addCounter = (list) => {
+    //list.push(0); return list;
+    return [...list, 0];
+};
+
+const removeCounter = (list, index) => {
+  return [
+    ...list.slice(0, index),
+    ...list.slice(index + 1)
+  ];
+};
+
+const incrementCounter = (list, index) => {
+  return [
+    ...list.slice(0, index),
+    list[index] + 1,
+    ...list.slice(index + 1)
+  ];
+};
+
+const testAddCounter = () => {
+  const listBefore = [];
+  const listAfter = [0];
+  
+  deepFreeze(listBefore);
+  
+  expect(
+    addCounter(listBefore)
+  ).toEqual(listAfter);
+};
+
+const testRemoveCounter = () => {
+  const listBefore = [0, 10, 20];
+  const listAfter = [0, 20];
+  
+  deepFreeze(listBefore);
+  
+  expect(
+    removeCounter(listBefore, 1)
+  ).toEqual(listAfter);
+};
+
+const testIncrementCounter = () => {
+  const listBefore = [0, 10, 20];
+  const listAfter = [0, 11, 20];
+  
+  deepFreeze(listBefore);
+  
+  expect(
+    incrementCounter(listBefore, 1)
+  ).toEqual(listAfter);
+};
+
+testAddCounter();
+testRemoveCounter();
+testIncrementCounter();
+
+
+/*----------------- Avoiding Object Mutations with Object.assign() and (ES7) ...spread ---------------*/
+// console.log('use jsbin with babel for object spread operator');
+
+
+const toggleTodo = (todo) => {
+    return Object.assign({}, todo, {completed: !todo.completed});
+// ES7 syntax:    
+//   return {
+//     ...todo,
+//     completed: !todo.completed
+//   };
+};
+
+const testToggleTodo = () => {
+  const todoBefore = {
+    id: 0,
+    text: 'Learn Redux',
+    completed: false
+  };
+  const todoAfter = {
+    id: 0,
+    text: 'Learn Redux',
+    completed: true
+  };
+  
+  deepFreeze(todoBefore);
+  
+  expect(
+    toggleTodo(todoBefore)
+  ).toEqual(todoAfter);
+};
+
+testToggleTodo();
+
+console.log('All tests passed.');
+</script>
+</body>
+</html>

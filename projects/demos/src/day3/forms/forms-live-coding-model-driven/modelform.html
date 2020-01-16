@@ -1,0 +1,57 @@
+<form [formGroup]="myForm" novalidate (ngSubmit)="onSubmit()">
+    <mat-card>
+        <mat-card-title>Registration Form</mat-card-title>
+        <mat-card-content>
+            <div class="flex">
+                <mat-form-field>
+                    <input matInput formControlName="firstName" placeholder="First name"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput formControlName="lastName" placeholder="Last name"/>
+                </mat-form-field>
+            </div>
+            <mat-form-field>
+                <input matInput formControlName="username" placeholder="Username"/>
+                <mat-error *ngIf="myForm.get('username').invalid && myForm.get('username').dirty">
+                    Name must be longer than 5 chars
+                </mat-error>
+            </mat-form-field>
+            <div formArrayName="address" Name="address">
+                <div *ngFor="let address of addresses.controls; let i = index;" [formGroupName]="i">
+                    <p>Address</p>
+                    <mat-form-field>
+                        <input matInput formControlName="street" placeholder="Street"/>
+                    </mat-form-field>
+                    <div class="flex align-center">
+                        <mat-form-field>
+                            <input matInput formControlName="city" placeholder="City"/>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-select formControlName="state">
+                                <mat-option value="" disabled>Select a state</mat-option>
+                                <mat-option value="CA">CA</mat-option>
+                                <mat-option value="NY">NY</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput formControlName='zip' placeholder="zip" type="number"/>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <button mat-button (click)="addAddress()">ADD ADDRESS</button>
+            </div>
+            <p>Would you like a newsletter?</p>
+            <mat-radio-group>
+                <mat-radio-button [value]="true">
+                    Yes
+                </mat-radio-button>
+                <mat-radio-button [value]="false"></mat-radio-button>
+            </mat-radio-group>
+            <mat-checkbox formControlName="human"> I am not a robot</mat-checkbox>
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button color="primary" type="submit">SUBMIT</button>
+        </mat-card-actions>
+    </mat-card>
+</form>
+<pre>{{myForm.value|json}}</pre>

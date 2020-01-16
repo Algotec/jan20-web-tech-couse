@@ -1,0 +1,61 @@
+<form #f="ngForm" novalidate (ngSubmit)="log(f)">
+    <mat-card>
+        <mat-card-title>Registration Form</mat-card-title>
+        <mat-card-content>
+            <div class="flex">
+                <mat-form-field>
+                    <input matInput ngModel name="firstName" placeholder="First name"/>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput ngModel #lName="ngModel" name="lastName" required placeholder="Last name"/>
+                    <mat-error *ngIf="lName.invalid">Last name is required</mat-error>
+                </mat-form-field>
+            </div>
+            <mat-form-field>
+                <input matInput ngModel name="userName" minlength="5" placeholder="Username"/>
+            </mat-form-field>
+            <div>
+                <div ngModelGroup="address">
+                    <p>Address</p>
+                    <mat-form-field>
+                        <input matInput ngModel="" name="street" required="" placeholder="Street"/>
+                    </mat-form-field>
+                    <div class="flex align-center">
+                        <div class="flex align-center">
+                            <mat-form-field>
+                                <input matInput ngModel="" name="city" placeholder="City"/>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <mat-select ngModel="" name="state">
+                                    <mat-option value="" disabled>Select a state</mat-option>
+                                    <mat-option value="CA">CA</mat-option>
+                                    <mat-option value="NY">NY</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input ngModel="" name="street" matInput placeholder="zip" type="number"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <!--<button mat-button (click)="addAddress()">ADD ADDRESS</button>-->
+                </div>
+            </div>
+            <p>Would you like a newsletter?</p>
+            <label for="yes">
+                <input type="radio" id="yes">
+                Yes
+            </label>
+            <label for="no">
+                <input type="radio" id="no">
+                No
+            </label>
+            <input type="checkbox"> I am not a robot
+        </mat-card-content>
+        <mat-card-actions align="end">
+            <button mat-button color="primary" type="submit">SUBMIT</button>
+        </mat-card-actions>
+    </mat-card>
+    <pre>
+        {{f.value|json}}
+    </pre>
+</form>
