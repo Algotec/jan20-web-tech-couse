@@ -10,7 +10,10 @@ import {BankService} from '../../shared/bank.service';
 })
 export class SpaceshipsMarketContainer implements OnInit {
   shipsAvailable$ = this.spaceShipSvc.shipsAvailable$;
-  balance = this.bankService.balance;
+
+  get balance() {
+    return this.bankService.balance;
+  };
 
   constructor(private spaceShipSvc: SpaceshipsService, private bankService: BankService) {
   }
@@ -19,9 +22,9 @@ export class SpaceshipsMarketContainer implements OnInit {
   }
 
   buyShip(spaceship: SpaceShipFactory<any>) {
-    console.log('we had ', this.bankService.balance, ' before purchase ');
+    console.log('we had ', this.balance, ' before purchase ');
     this.bankService.withdraw(spaceship.price);
-    console.log('we paid ', spaceship.price, ' and now have ', this.bankService.balance);
+    console.log('we paid ', spaceship.price, ' and now have ', this.balance);
     return this.spaceShipSvc.constructSpaceShip(spaceship);
   }
 }

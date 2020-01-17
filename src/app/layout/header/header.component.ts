@@ -15,7 +15,10 @@ export class HeaderComponent implements OnInit {
   }
 
   showBlackBg: boolean = false;
-  currentBalance = this.bankService.balance;
+
+  get currentBalance (){
+    return this.bankService.balance;
+  };
 
 
   ngOnInit() {
