@@ -19,6 +19,9 @@ export class SpaceshipsMarketContainer implements OnInit {
   }
 
   buyShip(spaceship: SpaceShipFactory<any>) {
+    console.log('we had ', this.bankService.balance, ' before purchase ');
+    this.bankService.withdraw(spaceship.price);
+    console.log('we paid ', spaceship.price, ' and now have ', this.bankService.balance);
     return this.spaceShipSvc.constructSpaceShip(spaceship);
   }
 }

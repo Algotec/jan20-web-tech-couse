@@ -7,7 +7,7 @@ const initialBalance = 100_000_000;
   providedIn: 'root'
 })
 export class BankService {
-  get balance(): number {
+  get balance(): Dollars {
     return this._balance;
   }
 
