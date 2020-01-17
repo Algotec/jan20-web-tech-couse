@@ -10,10 +10,7 @@ import {BankService} from '../../shared/bank.service';
 })
 export class SpaceshipsMarketContainer implements OnInit {
   shipsAvailable$ = this.spaceShipSvc.shipsAvailable$;
-
-  get balance() {
-    return this.bankService.balance;
-  };
+  balance = this.bankService.balance$;
 
   constructor(private spaceShipSvc: SpaceshipsService, private bankService: BankService) {
   }

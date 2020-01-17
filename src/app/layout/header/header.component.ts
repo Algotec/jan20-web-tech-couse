@@ -7,7 +7,7 @@ import {BankService} from '../../shared/bank.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  changeDetection:ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
@@ -17,9 +17,7 @@ export class HeaderComponent implements OnInit {
 
   showBlackBg: boolean = false;
 
-  get currentBalance (){
-    return this.bankService.balance;
-  };
+  currentBalance$ = this.bankService.balance$;
 
 
   ngOnInit() {
