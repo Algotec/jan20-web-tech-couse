@@ -1,4 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Dollars, SpaceShipFactory} from '@algotec/spaceship-parts';
 
 @Component({
   selector: 'app-spaceships-market',
@@ -6,10 +7,17 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./spaceships-market.component.scss']
 })
 export class SpaceshipsMarketComponent implements OnInit {
+  @Input() ships: { [key: string]: SpaceShipFactory<any> };
+  @Input() currentBalance: Dollars;
+  @Output() buyShip = new EventEmitter<SpaceShipFactory<any>>();
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  hasMoneyFor(price: Dollars) {
+    return this.currentBalance >= price;
+  }
 }

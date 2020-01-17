@@ -1,1 +1,11 @@
-<p>spaceships-market works!</p>
+<h2 class="section-label">Spaceships Market</h2>
+<section class="list-wrapper">
+  <article *ngFor="let ship of ships | keyvalue" class="spaceship-box choosable" [class.out-of-budget]="!hasMoneyFor(ship.value.price)">
+    <p class="spaceship-label">{{ship.key}}</p>
+    <div class="spaceship-details">
+      <img class="spaceship-image choosable" src="/assets/images/{{ship.key|lowercase}}.jpg"/>
+      <p class="spaceship-price">{{ship.value.price|currency:'USD':'symbol':'1.0-0'}}</p>
+      <button (click)="buyShip.emit(ship.value)" class="nav-button" [disabled]="!hasMoneyFor(ship.value.price)">Buy</button>
+    </div>
+  </article>
+</section>
