@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {animationFrameScheduler, fromEvent} from 'rxjs';
 import {map, subscribeOn} from 'rxjs/operators';
 import {BankService} from '../../shared/bank.service';
@@ -7,6 +7,7 @@ import {BankService} from '../../shared/bank.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
+  changeDetection:ChangeDetectionStrategy.OnPush,
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
