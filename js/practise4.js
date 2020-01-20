@@ -77,3 +77,75 @@ getChangeFor([
 ],10) ➞
 
  */
+function calcSum(products) {
+	return products.reduce((acc, v) => {
+		return (acc += v.quantity * v.price);
+	}, 0);
+}
+
+function calcChangeArr(coinsAvailable, total) {
+	let changeArr = [];
+	let reminder = total;
+	for (let coin of coinsAvailable) {
+		// normal JS - protect against coin not being a number...
+		if (typeof coin == "number") {
+			while (reminder - coin >= 0) {
+				changeArr.push(coin);
+				reminder -= coin;
+			}
+		}
+	}
+	if (reminder > 0) {
+		throw new Error("no coins can accomdate the change " + total);
+	}
+	return changeArr;
+}
+
+function makeChangeCoinsObj(changeArr) {
+	// this
+	/*const changeCoinsObj = {};
+	for (let coin of changeArr) {
+	  let currAmount = changeCoinsObj[coin] || 0;
+	  changeCoinsObj[coin] = currAmount + 1;
+	}
+
+	/// or that
+  */
+	return changeArr.reduce((acc, v) => {
+		acc[v] = acc[v] ? acc[v] + 1 : 1;
+		return acc;
+	}, {});
+
+	//  return changeCoinsObj;
+}
+
+function till(availableCoins) {
+	const changeArrFn = calcChangeArr.bind(this, availableCoins);
+	return (products, cash) => {
+		let total = calcSum(products);
+		const change = cash - total;
+		if (change < 0) {
+			throw new Error("customer doesn't have enough money!");
+		}
+
+		const changeArr = changeArrFn(change);
+		console.log(changeArr);
+		return {
+			total,
+			change: {
+				sum: change,
+				coins: makeChangeCoinsObj(changeArr)
+			}
+		};
+	};
+}
+
+let products = [
+	{ price: 1.5, quantity: 5, name: "milk" },
+	{ price: 8, quantity: 2, name: "cerials" }
+];
+let coinsAvailable = [20, 10, 5, 1, 0.5];
+// console.log(calcSum(products));
+const myTill = till(coinsAvailable);
+const pruchase = myTill(products, 50);
+console.log(JSON.stringify(pruchase, null));

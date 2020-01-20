@@ -1,8 +1,25 @@
 // write a function that takes start and end arguments and produces an array with integers in that range (inclusive)
 // if the end is not supplied it returns another function which expects that end arguments
 
-function range(start,end) {
-  // ..TODO..
+function range(start, end) {
+	if (end == null) {
+		return (end) => {
+			return range(start, end);
+		}
+	}
+	if (end === 0) {
+		return []
+	}
+	const length = end - start + 1;
+
+	if (length <= 0) {
+		return [start]
+	}
+	const arr = new Array(length).fill(null);
+	return arr.map((v, index) => {
+		return start + index;
+	});
+
 }
 
 range(3,3);    // [3]

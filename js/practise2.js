@@ -7,8 +7,12 @@
 //Input: 8
 //Output: 40320
 function FirstFactorial(num) {
-
-
+let cur = num,sum=1;
+while (cur>0){
+	sum = cur*sum;
+	cur--;
+}
+return sum;
 }
 
-FirstFactorial(8) //?
+FirstFactorial(5) //?

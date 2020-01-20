@@ -9,9 +9,28 @@ Output: true
 Input: ["c,a,r,d", "c,a,-B,r,d"]
 Output: false
  */
-function EquivalentKeypresses(strArr) {
-  //code here
+
+function cleanUp(str) { //
+	return str.replace(/,.,-B/, ''); //?
+	//other option includes stuff like breaking the string to array via str.split(',')
+	//then using a sum loop or [].reduce to remove letters "deleted"
+
+	return str.split(',')
+		.reduce((acc, v, i) => {
+			if (v !== '-B') {
+				acc += v;
+			} else {
+				acc = acc.substr(0, i - 1);
+			}
+			return acc;
+		}, '')
 }
 
-EquivalentKeypresses(["a,b,c,d", "a,b,c,d,-B,d"]) // true
-EquivalentKeypresses(["c,a,r,d", "c,a,-B,r,d"]) // false
+function EquivalentKeypresses(strArr) {
+	//code here
+	const [first, second] = strArr.map(cleanUp); //?.
+	return first === second;
+}
+
+EquivalentKeypresses(["a,b,c,d", "a,b,c,d,-B,d"]) //? true
+EquivalentKeypresses(["c,a,r,d", "c,a,-B,r,d"]) //? false
