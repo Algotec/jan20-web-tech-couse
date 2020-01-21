@@ -2,7 +2,7 @@
  Day1
  *********/
 
-import "./day1/010-counterInputOutput/main";
+// import "./day1/010-counterInputOutput/main";
 // import "./day1/012-DisplayAndEvents/main";
 // import "./day1/020-BuiltinDirectives/main";
 // import "./day1/025-Pipes/main";
@@ -14,6 +14,7 @@ import "./day1/010-counterInputOutput/main";
 
 // import "./day2/070-DI-Cars/main";
 // import "./day2/lifecycle/main";
+// import "./day2/090-ObservableDataServices/main";
 // import "./day2/Directives/010-CustomDirectives/main";
 // import "./day2/Directives/050-Collapse-ContentProjection/main";
 // import "./day2/Directives/015-refToViewChildren/main";
@@ -56,7 +57,7 @@ import "./day1/010-counterInputOutput/main";
 // import './day4/state/redux-basics/main';
 // import './day4/state/redux_pattern_logout_timer/main';
 // import "./day4/state/modal-component/main";
-// import "./day4/state//090-ObservableDataServices/main";
+
 // import "./day4/state/rxjs-clock/main";
 // import './demos-not-covered/pets/main';
 // import "./demos-not-covered/CustomElementInterop/main";
