@@ -3,6 +3,7 @@ import {Observable, of} from 'rxjs';
 import {Appolo, Enterprise, Genesis, IEngine, ISpaceship, SpaceShipFactory} from '@algotec/spaceship-parts';
 import {Cords, ShipWithPosition} from '../planets/common/common.types';
 import {delay} from 'rxjs/operators';
+import {NotificationsService} from '../notifications/notifications.service';
 
 const basePlanetPos: Omit<ShipWithPosition, 'ship'> = {anchorPlanet: 'Earth', move: {x: 0, y: 0}};
 
@@ -10,14 +11,19 @@ const basePlanetPos: Omit<ShipWithPosition, 'ship'> = {anchorPlanet: 'Earth', mo
   providedIn: 'root'
 })
 export class SpaceshipsService {
+  constructor(private notificationService:NotificationsService) {
+
+  }
   shipsAvailable$: Observable<{ [key: string]: SpaceShipFactory<any> }> = of({Enterprise, Appolo, Genesis});
   private myShips: ShipWithPosition[] = [];
 
   constructSpaceShip<T extends ISpaceship>(spaceship: SpaceShipFactory<T>, engine?: IEngine): Promise<T> {
+    const removeNotification = this.notificationService.notify('Ship under construction...');
     const ship = new spaceship(engine);
     const complexity = ship.complexity + ship.engine.complexity;
     return of<T>(ship).pipe(delay(complexity * 2000)).toPromise()
       .then((ship) => {
+        removeNotification();
         this.myShips.push({ship: ship as ISpaceship, ...basePlanetPos});
         return ship;
       });
