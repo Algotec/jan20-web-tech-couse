@@ -14,7 +14,10 @@ class AppComponent {
     data = {val : 99}
 
     constructor() {
-        setTimeout(()=>this.data.val=211, 2000);
+        setTimeout(()=>this.data.val=211, 2000); // see how even changing a nested property will be reflected in the dom
+        // because it is wrapped in setTimeout, all async events are wrapped by zone.js and all changes are naturally async
+        // however if we want speed - we can mark the component (counter) as OnPush for change detection and angular will skip its changeDetection
+        // if its inputs haven't changed  -
     }
     counterChanged($event){
         console.log('counter value: ' , $event);
@@ -24,10 +27,10 @@ class AppComponent {
 
 
 @NgModule({
-  imports: [ BrowserModule ],      
-  declarations: [ AppComponent, CounterComponent],   
-  bootstrap: [ AppComponent ],     
-  providers: [ ]                   
+  imports: [ BrowserModule ],
+  declarations: [ AppComponent, CounterComponent],
+  bootstrap: [ AppComponent ],
+  providers: [ ]
 })
 export class AppModule { }
 

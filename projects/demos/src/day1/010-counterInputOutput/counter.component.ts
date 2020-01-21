@@ -3,6 +3,7 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'counter',
+  // changeDetection:ChangeDetectionStrategy.OnPush,
   styles: [`
     button {color:darkgreen}
   `],
