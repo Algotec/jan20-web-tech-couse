@@ -7,12 +7,13 @@ import {PlanetVisitComponent} from './planet-visit/planet-visit.component';
 import {planetRouteData} from './common/common.types';
 import {PlanetVisitFormComponent} from './planet-visit/planet-visit-form/planet-visit-form.component';
 import {SharedModule} from '../shared/shared.module';
-import { HeadquartersComponent } from './headquarters/headquarters.component';
+import {HeadquartersComponent} from './headquarters/headquarters.component';
 
 
 const planetRoutes: Routes = [
   {path: 'planets', component: PlanetsViewComponent},
-  {path: `planet/:${planetRouteData}`, component: PlanetVisitComponent}
+  {path: `planet/Earth`, component: HeadquartersComponent},
+  {path: `planet/:${planetRouteData}`, component: PlanetVisitComponent},
 ];
 
 @NgModule({

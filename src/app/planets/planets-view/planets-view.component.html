@@ -1,3 +1,14 @@
-<div class="planets-container">
-  <app-planet [routerLink]="['/planet',planet.name]" *ngFor="let planet of planets|async" [planet]="planet"></app-planet>
-</div>
+<h2 class="section-label">Space Travels Overview</h2>
+<section class="travelbox">
+  <div class="earth-container">
+    <app-planet [showBox]="false" [routerLink]="['/planet','Earth']" [planet]="{name:'Earth'}"></app-planet>
+  </div>
+  <div class="planets-container">
+    <app-planet [showBox]="false" [routerLink]="['/planet',planet.name]"
+                *ngFor="let planet of planets|async"
+                [planet]="planet">
+    </app-planet>
+
+  </div>
+</section>
+

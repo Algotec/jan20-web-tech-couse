@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {animationFrameScheduler, fromEvent} from 'rxjs';
 import {map, subscribeOn} from 'rxjs/operators';
 import {BankService} from '../../shared/bank.service';
@@ -12,7 +12,7 @@ import {BankService} from '../../shared/bank.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private bankService: BankService) {
+  constructor(private bankService: BankService,private cdr:ChangeDetectorRef) {
   }
 
   showBlackBg: boolean = false;
@@ -26,6 +26,7 @@ export class HeaderComponent implements OnInit {
       map(() => window.scrollY > 120),
     ).subscribe((showBg: boolean) => {
       this.showBlackBg = showBg;
+      this.cdr.markForCheck();
     });
   }
 
