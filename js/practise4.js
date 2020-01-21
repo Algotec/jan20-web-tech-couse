@@ -51,16 +51,16 @@ and returns an object with the following shape:
   const changeCalculator = createSumCalcForProducts([
       { product: "Milk", quantity: 2, price: 1.50 },
       { product: "Cereals", quantity: 1, price: 2.50 }
-   ]); // sum is 6.5, but there's no output yet.
+   ]); // sum is 5.5, but there's no output yet.
 
   const change = changeCalculator(20) // customer gave 20 to till
 
   console.log(change)
     {
-    total: 13.5
+    total: 14.5
     coins: {
      10:1
-     1: 3
+     1: 4
      "0.5": 1
      }
    }
