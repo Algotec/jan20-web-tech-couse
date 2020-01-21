@@ -11,11 +11,12 @@ import {FormsModule} from '@angular/forms';
       <!--alternate syntax for event & data binding -->
   </h3>
   <button [hidden]="!visibleFlag" (click)="sayHello($event)">Say Hello</button>
-
-  <div style="float:right" (mouseout)="toggelVisibleFlag()">Toggle</div>
+     <div style="float:right" (mouseout)="toggelVisibleFlag()">Toggle</div>
   <hr/>
   <input #input (keydown)="onKey($event)" (keydown.backspace)="values=''"/>
   <pre>{{monster.dkajdaj?.ucu2}}</pre>
+  <pre>{{monster|json}}</pre>
+  <pre>{{values|json}}</pre>
 	`
 }) // remember to show the binding to input.value
 class AppComponent {

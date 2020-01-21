@@ -3,7 +3,7 @@
  *********/
 
 // import "./day1/010-counterInputOutput/main";
-// import "./day1/012-DisplayAndEvents/main";
+import "./day1/012-DisplayAndEvents/main";
 // import "./day1/020-BuiltinDirectives/main";
 // import "./day1/025-Pipes/main";
 // import './day1/wikipediaSearch/main';
@@ -12,7 +12,8 @@
  *********/
 
 
-import "./day2/070-DI-Cars/main";
+// import "./day2/070-DI-Cars/main";
+// import "./day2/lifecycle/main";
 // import "./day2/Directives/010-CustomDirectives/main";
 // import "./day2/Directives/050-Collapse-ContentProjection/main";
 // import "./day2/Directives/015-refToViewChildren/main";
@@ -44,11 +45,6 @@ import "./day2/070-DI-Cars/main";
  Day3 - Routing
  *********/
 // import './day3/monstersAndChat/main';
-
-
-
-
-// import "./day2/lifecycle/main";
 // import "./day2/routing-monsters/main";
 
 /**********
