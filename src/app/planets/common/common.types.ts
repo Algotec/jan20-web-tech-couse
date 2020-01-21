@@ -1,20 +1,24 @@
 import {ISpaceship} from '@algotec/spaceship-parts';
 
 export const planetRouteData = 'planetName';
+export const destinationPlanetRouteData = 'toPlanetName';
+export const fromPlanetRouteData = 'fromPlanetName';
+export const shipRouteData = 'ship';
 export type AU = number;
 
 export interface IPlanetData {
   name: string;
-  distance: AU;
+  distance?: AU;
 }
 
 
-export interface  Cords {
-  x:number;
-  y:number;
+export interface Cords {
+  x: number;
+  y: number;
 }
+
 export interface ShipWithPosition {
-  ship:ISpaceship,
-  anchorPlanet:string;
-  move:Cords;
+  ship: ISpaceship,
+  anchorPlanet: string;
+  move: Cords;
 }

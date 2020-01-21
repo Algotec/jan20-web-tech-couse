@@ -4,21 +4,33 @@ import {PlanetsViewComponent} from './planets-view/planets-view.component';
 import {PlanetComponent} from './planet/planet.component';
 import {RouterModule, Routes} from '@angular/router';
 import {PlanetVisitComponent} from './planet-visit/planet-visit.component';
-import {planetRouteData} from './common/common.types';
+import {destinationPlanetRouteData, fromPlanetRouteData, planetRouteData, shipRouteData} from './common/common.types';
 import {PlanetVisitFormComponent} from './planet-visit/planet-visit-form/planet-visit-form.component';
 import {SharedModule} from '../shared/shared.module';
 import {HeadquartersComponent} from './headquarters/headquarters.component';
 import {SpaceshipsModule} from '../spaceships/spaceships.module';
+import {PlanetJourneyComponent} from './planet-journey/planet-journey.component';
+import {SpaceshipResolver} from '../spaceships/spaceship.resolver';
+import {DestinationPlanetResolver, FromPlanetResolver} from './common/planet.resolver';
 
 
 const planetRoutes: Routes = [
   {path: 'planets', component: PlanetsViewComponent},
   {path: `planet/Earth`, component: HeadquartersComponent},
   {path: `planet/:${planetRouteData}`, component: PlanetVisitComponent},
+  {
+    path: `journey/:${shipRouteData}/from/:${fromPlanetRouteData}/to/:${destinationPlanetRouteData}`,
+    resolve: {
+      ship: SpaceshipResolver,
+      destinationPlanet: DestinationPlanetResolver,
+      fromPlanet: FromPlanetResolver
+    },
+    component: PlanetJourneyComponent
+  }
 ];
 
 @NgModule({
-  declarations: [PlanetsViewComponent, PlanetComponent, PlanetVisitComponent, PlanetVisitFormComponent,HeadquartersComponent],
+  declarations: [PlanetsViewComponent, PlanetJourneyComponent, PlanetComponent, PlanetVisitComponent, PlanetVisitFormComponent, HeadquartersComponent],
   exports: [PlanetsViewComponent],
   imports: [
     CommonModule,

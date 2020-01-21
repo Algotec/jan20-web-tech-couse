@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable, of} from 'rxjs';
-import {Appolo, Enterprise, Genesis, IEngine, ISpaceship, SpaceShipFactory} from '@algotec/spaceship-parts';
+import {Appolo, Enterprise, Genesis, IEngine, ISpaceship, LiquidNitrogenFuelSupply, RocketEngine, SpaceShipFactory} from '@algotec/spaceship-parts';
 import {Cords, ShipWithPosition} from '../planets/common/common.types';
 import {delay} from 'rxjs/operators';
 import {NotificationsService} from '../notifications/notifications.service';
+import {Router} from '@angular/router';
 
 export const basePlanetPos: Omit<ShipWithPosition, 'ship'> = {anchorPlanet: 'Earth', move: {x: 0, y: 0}};
 
@@ -11,6 +12,7 @@ export const basePlanetPos: Omit<ShipWithPosition, 'ship'> = {anchorPlanet: 'Ear
   providedIn: 'root'
 })
 export class SpaceshipsService {
+
   get myShips(): ShipWithPosition[] {
     return this._myShips;
   }
@@ -20,7 +22,7 @@ export class SpaceshipsService {
     this.myShipsSubject.next(value);
   }
 
-  constructor(private notificationService: NotificationsService) {
+  constructor(private notificationService: NotificationsService, private router: Router) {
 
   }
 
@@ -32,8 +34,14 @@ export class SpaceshipsService {
   // 3 - the observable public API
 
   // this is convoluted, in the near future we will see ways to deal with observable state in a better style.
-  private _myShips: ShipWithPosition[] = [];
-  private myShipsSubject = new BehaviorSubject<ShipWithPosition[]>([]);
+  // private _myShips: ShipWithPosition[] = [];
+  // for testing we can start with a ship in initial state!
+  private _myShips: ShipWithPosition[] = [{
+    ship: new Appolo(new RocketEngine(new LiquidNitrogenFuelSupply(1000))),
+    ...basePlanetPos
+  }
+  ];
+  private myShipsSubject = new BehaviorSubject<ShipWithPosition[]>(this.myShips);
   myShips$ = this.myShipsSubject.asObservable();
 
   constructSpaceShip<T extends ISpaceship>(spaceship: SpaceShipFactory<T>, engine?: IEngine): Promise<T> {
@@ -76,6 +84,13 @@ export class SpaceshipsService {
       ship.move = move;
     }
 
+  }
+
+  onFuelEnd(shipId: number) {
+    const stopNotify = this.notificationService.notify('spaceship lost!');
+    this.myShips = [...this.myShips.slice(0, shipId), ...this.myShips.slice(shipId + 1)];
+    setTimeout(stopNotify, 5000);
+    this.router.navigateByUrl('/');
   }
 
 }

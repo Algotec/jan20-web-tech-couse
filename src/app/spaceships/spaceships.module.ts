@@ -10,7 +10,7 @@ const spaceshipRoutes: Routes = [{path: 'spaceships', component: SpaceshipsMarke
 
 @NgModule({
   declarations: [SpaceshipsMarketComponent, SpaceshipsMarketContainer, MyShipsComponent, SpaceshipImageComponent],
-  exports: [SpaceshipsMarketContainer, MyShipsComponent],
+  exports: [SpaceshipsMarketContainer, MyShipsComponent, SpaceshipImageComponent],
   imports: [
     SharedModule,
     RouterModule.forChild(spaceshipRoutes)
