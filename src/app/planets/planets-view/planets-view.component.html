@@ -2,6 +2,7 @@
 <section class="travelbox">
   <div class="earth-container">
     <app-planet [showBox]="false" [routerLink]="['/planet','Earth']" [planet]="{name:'Earth'}"></app-planet>
+    <app-my-ships [ships]="myShips$|async"></app-my-ships>
   </div>
   <div class="planets-container">
     <app-planet [showBox]="false" [routerLink]="['/planet',planet.name]"
