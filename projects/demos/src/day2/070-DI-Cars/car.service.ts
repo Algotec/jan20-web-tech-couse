@@ -8,7 +8,8 @@ export class CarService {
 	constructor(@Optional() private logger: Logger,
 		@Inject(CarsCollectionToken) private carsCollection,
 		@Inject('app.config') private config: Config) {
-		//console.log(config);
+		console.log(config);
+		console.log('logger',logger);
 	}
 
 	query() {

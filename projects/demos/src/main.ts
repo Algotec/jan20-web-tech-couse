@@ -2,7 +2,7 @@
  Day1
  *********/
 
-import "./day1/010-counterInputOutput/main";
+// import "./day1/010-counterInputOutput/main";
 // import "./day1/012-DisplayAndEvents/main";
 // import "./day1/020-BuiltinDirectives/main";
 // import "./day1/025-Pipes/main";
@@ -12,7 +12,7 @@ import "./day1/010-counterInputOutput/main";
  *********/
 
 
-// import "./day2/070-DI-Cars/main";
+import "./day2/070-DI-Cars/main";
 // import "./day2/Directives/010-CustomDirectives/main";
 // import "./day2/Directives/050-Collapse-ContentProjection/main";
 // import "./day2/Directives/015-refToViewChildren/main";

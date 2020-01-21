@@ -11,7 +11,7 @@ import {TestSvc} from './common/test.service';
 	template: `
   <div class="car">
     <h2>Car: {{car.plate}} <button (click)="deleteCar()">X</button> </h2>
-    <img src="img/car/{{car.id}}.png">
+    <img src="assets/img/car/{{car.id}}.png">
 
   </div>
 
