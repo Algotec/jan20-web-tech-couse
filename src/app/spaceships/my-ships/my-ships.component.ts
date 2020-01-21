@@ -7,7 +7,7 @@ import {ISpaceship} from '@algotec/spaceship-parts';
   styleUrls: ['./my-ships.component.scss']
 })
 export class MyShipsComponent implements OnInit {
-  @Input() ships:  ISpaceship[];
+  @Input() ships: ISpaceship[];
 
   constructor() {
   }
@@ -15,5 +15,20 @@ export class MyShipsComponent implements OnInit {
   ngOnInit() {
   }
 
+  spaceShipDragStart($event: DragEvent, shipId: string) {
+
+    $event.dataTransfer.dropEffect = "move";
+    $event.dataTransfer.setData("text/plain", shipId);
+    requestAnimationFrame(() => {
+      ($event.target as HTMLElement).hidden = true;
+    });
+
+  }
+
+  spaceShipDragEnd($event: DragEvent) {
+    requestAnimationFrame(() => {
+      ($event.target as HTMLElement).hidden = false;
+    });
+  }
 
 }
