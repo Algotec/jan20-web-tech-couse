@@ -68,7 +68,7 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
 
   private async destinationReached() {
     this.initialShipPos = this.destinationLeft;
-    // this.spaceshipsSvc.setPosition(this.shipID, this.destination.name);
+    this.spaceshipsSvc.setPosition(this.shipID, this.destination.name);
     await this.ship.engine.stop();
     await this.router.navigate(['planet', this.destination.name], {queryParams: {ship: this.shipID}});
   }

@@ -78,7 +78,7 @@ export class SpaceshipsService {
 
 
   setPosition(shipOrId: number | ISpaceship, anchorPlanet: string, move: Cords = {x: 0, y: 0}) {
-    const ship = this._getShip(shipOrId);
+    const ship = this._getShip(+shipOrId);
     if (ship) {
       ship.anchorPlanet = anchorPlanet;
       ship.move = move;

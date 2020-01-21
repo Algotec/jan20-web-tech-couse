@@ -12,6 +12,8 @@ import {SpaceshipsModule} from '../spaceships/spaceships.module';
 import {PlanetJourneyComponent} from './planet-journey/planet-journey.component';
 import {SpaceshipResolver} from '../spaceships/spaceship.resolver';
 import {DestinationPlanetResolver, FromPlanetResolver} from './common/planet.resolver';
+import {ShipPositionGuard} from '../spaceships/ship.position.guard';
+import {JourneyDeactivationGuard} from './journeyDeactivationGuard';
 
 
 const planetRoutes: Routes = [
@@ -20,6 +22,8 @@ const planetRoutes: Routes = [
   {path: `planet/:${planetRouteData}`, component: PlanetVisitComponent},
   {
     path: `journey/:${shipRouteData}/from/:${fromPlanetRouteData}/to/:${destinationPlanetRouteData}`,
+    canActivate: [ShipPositionGuard],
+    canDeactivate:[JourneyDeactivationGuard],
     resolve: {
       ship: SpaceshipResolver,
       destinationPlanet: DestinationPlanetResolver,
