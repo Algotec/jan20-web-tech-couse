@@ -5,7 +5,9 @@
     <app-my-ships [ships]="myShips$|async"></app-my-ships>
   </div>
   <div class="planets-container">
-    <app-planet [showBox]="false" [routerLink]="['/planet',planet.name]"
+    <app-planet (drop)="onDrop($event,planet.name)" (dragleave)="onDragLeave($event,planet.name)" (dragover)="onDragOver($event,planet.name)"
+                [showBox]="boxOnPlanet === planet.name"
+                [routerLink]="['/planet',planet.name]"
                 *ngFor="let planet of planets|async"
                 [planet]="planet">
     </app-planet>
