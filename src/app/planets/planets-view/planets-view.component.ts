@@ -33,7 +33,8 @@ export class PlanetsViewComponent implements OnInit {
     $event.preventDefault();
     let ship = $event.dataTransfer.getData("text");
     console.log($event, planet, ship);
-    this.router.navigate(['journey', ship, 'from', this.fromPlanet, 'to', planet])
+    if (this.fromPlanet !== planet){
+      this.router.navigate(['journey', ship, 'from', this.fromPlanet, 'to', planet])}
   };
 
   onDragOver($event: DragEvent, planet: string) {

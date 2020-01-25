@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {ISpaceship} from '@algotec/spaceship-parts';
+import {ISpaceship, removeHandlerCallback} from '@algotec/spaceship-parts';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SpaceshipsService} from '../../spaceships/spaceships.service';
 import {IPlanetData, shipRouteData} from '../common/common.types';
@@ -20,9 +20,10 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
   private initialShipPos: number;
   private shipID: number;
   private fromPlanet: IPlanetData;
+  private removeFuelEndHandler: removeHandlerCallback;
 
   get journeyComplete() {
-    return this.ship.engine.fuelSupply.fuelLeft === 0 || this.initialShipPos === this.destinationLeft;
+    return this.ship.engine.fuelSupply.fuelLeft === 0 || this.currentLeft === this.destinationLeft;
   }
 
   constructor(private activatedRoute: ActivatedRoute, private spaceshipsSvc: SpaceshipsService, private router: Router) {
@@ -34,9 +35,11 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngOnInit() {
     this.initialShipPos = this.shipElement.nativeElement.getBoundingClientRect().x;
+    this.removeFuelEndHandler = this.ship.engine.fuelSupply.onFuelEnd(() => this.spaceshipsSvc.onFuelEnd(this.shipID))
   }
 
   ngOnDestroy() {
+    this.removeFuelEndHandler();
   }
 
   ngAfterViewInit() {
@@ -48,8 +51,8 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
       if ((this.initialShipPos + this.currentLeft) < this.destinationLeft) {
         let distance
         if (this.fromPlanet.distance === 0 || this.destination.distance === 0) {
-         distance = this.fromPlanet.distance + this.destination.distance;
-        }else {
+          distance = this.fromPlanet.distance + this.destination.distance;
+        } else {
           distance = Math.abs(this.fromPlanet.distance - this.destination.distance);
         }
         const nextLeft = Math.trunc(this.currentLeft + (5 / distance));

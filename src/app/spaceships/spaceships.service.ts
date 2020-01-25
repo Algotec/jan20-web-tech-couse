@@ -37,7 +37,7 @@ export class SpaceshipsService {
   // private _myShips: ShipWithPosition[] = [];
   // for testing we can start with a ship in initial state!
   private _myShips: ShipWithPosition[] = [{
-    ship: new Appolo(new RocketEngine(new LiquidNitrogenFuelSupply(1000))),
+    ship: new Appolo(new RocketEngine(new LiquidNitrogenFuelSupply(5))),
     ...basePlanetPos
   }
   ];

@@ -46,6 +46,9 @@ export interface IEngine extends HasPrice, HasComplexity {
   stop(): Promise<void>;
 }
 
+export type voidCallback = () => void;
+export type handlerCallback = (event?: any) => void;
+export type removeHandlerCallback = voidCallback;
 export type StopCallback = () => Error | null;
 export type StartCallback = (err: Error | null, stopCb: StopCallback) => void;
 
@@ -53,7 +56,7 @@ export interface IFuelSupply {
   capacity: Liters;
   potency: Octane;
   flow: LitersPerSecond;
-  onFuelEnd: Array<() => void>;
+  onFuelEnd: (callback: handlerCallback) => removeHandlerCallback
   fuelLeft: Liters;
 
 
