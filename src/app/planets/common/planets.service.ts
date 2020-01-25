@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {IPlanetData} from './common.types';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
 
 @Injectable({
@@ -29,6 +29,9 @@ export class PlanetsService {
 
 
   getByName$(planetName: string): Observable<IPlanetData> {
+    if (planetName === 'Earth') {
+      return of({name:'Earth',distance:0});
+    }
     return this.getAll()
       .pipe(map((planetList) => {
         return planetList.find((planet: IPlanetData) => {

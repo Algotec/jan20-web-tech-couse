@@ -26,11 +26,4 @@ export class FromPlanetResolver extends PlanetResolver implements Resolve<IPlane
     super(fromPlanetRouteData, planetsService);
   }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IPlanetData> {
-    if (route.params[this.routeParamName] === 'Earth') {
-      return of({name: 'Earth'});
-    } else {
-      return super.resolve(route, state);
-    }
-  }
 }

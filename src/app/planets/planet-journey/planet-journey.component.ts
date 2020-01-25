@@ -46,7 +46,13 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
   moveRight() {
     if (this.ship.engine.started) {
       if ((this.initialShipPos + this.currentLeft) < this.destinationLeft) {
-        const nextLeft = this.currentLeft + (5/this.destination.distance);
+        let distance
+        if (this.fromPlanet.distance === 0 || this.destination.distance === 0) {
+         distance = this.fromPlanet.distance + this.destination.distance;
+        }else {
+          distance = Math.abs(this.fromPlanet.distance - this.destination.distance);
+        }
+        const nextLeft = Math.trunc(this.currentLeft + (5 / distance));
         this.shipElement.nativeElement.style.transform = 'translateX(' + nextLeft + 'px)';
         this.currentLeft = nextLeft;
         requestAnimationFrame(() => {
@@ -70,7 +76,11 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
     this.initialShipPos = this.destinationLeft;
     this.spaceshipsSvc.setPosition(this.shipID, this.destination.name);
     await this.ship.engine.stop();
-    await this.router.navigate(['planet', this.destination.name], {queryParams: {ship: this.shipID}});
+    if (this.destination.name === 'Earth') {
+      await this.router.navigate(['planets']);
+    } else {
+      await this.router.navigate(['planet', this.destination.name], {queryParams: {ship: this.shipID}});
+    }
   }
 
   shutDown() {
