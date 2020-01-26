@@ -4,10 +4,13 @@ import {LoginComponent} from './login/login.component';
 
 
 export const routes: Routes = [
-	{path: '', redirectTo: 'home', pathMatch: 'full'},
-	{path: 'home', component: HomeComponent},
-	{path: 'login', component: LoginComponent}
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: 'home', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {
+    path: 'monster', loadChildren: () => {
+      return import('./monster/monster.module')
+        .then((monsterModuleFile) => monsterModuleFile.MonstersModule)
+    }
+  }
 ];
-
-
-//{path: 'monster', loadChildren: './monster/monster.module#MonstersModule'}

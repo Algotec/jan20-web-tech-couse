@@ -8,7 +8,7 @@ import {AuthGuard} from '../shared/auth/auth-guard.service';
 
 export const monsterCenterRoutes: Routes = [
   {
-    path: 'monster', // async loading made ''
+    path: '', // async loading made ''
     component: MonsterCenterComponent,
     children: [
       {
