@@ -8,10 +8,10 @@ import {ActivatedRoute, Router} from '@angular/router';
     <h2>CARS</h2>
     <ul class="list1">
       <li *ngFor="let car of cars"
-        [class.selected]="isSelected(car)"
-        (click)="onSelect(car)">
+          [class.selected]="isSelected(car)"
+          (click)="onSelect(car)">
         <span class="badge">{{car.id}}</span> {{car.name}}
-        <img src="img/car/{{car.id}}.png">
+        <img src="assets/img/car/{{car.id}}.png">
       </li>
     </ul>
   `,
@@ -26,16 +26,19 @@ export class CarListComponent implements OnInit {
     private _service: CarService,
     private _router: Router,
     private _route: ActivatedRoute) {
-      this._selectedId = +this._route.snapshot.params['id'];
+    this._selectedId = +this._route.snapshot.params['id'];
   }
+
   ngOnInit() {
     this._service.getCars().then(cars => this.cars = cars)
   }
 
-  isSelected(car: Car) { return car.id === this._selectedId; }
+  isSelected(car: Car) {
+    return car.id === this._selectedId;
+  }
 
   onSelect(car: Car) {
-    this._router.navigate( ['/car', car.id] );
+    this._router.navigate(['/car', car.id]);
   }
 
 

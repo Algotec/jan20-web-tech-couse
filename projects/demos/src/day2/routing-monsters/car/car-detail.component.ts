@@ -18,7 +18,7 @@ import {ActivatedRoute, Router} from '@angular/router';
           <div>
               <label>Name: </label>
               <input [(ngModel)]="car.name" placeholder="Car Name"/>
-              <img src="img/car/{{car.id}}.png">
+              <img src="assets/img/car/{{car.id}}.png">
           </div>
           <button (click)="gotoCars()">Back</button>
       </div>
