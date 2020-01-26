@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {Appolo, Enterprise, Genesis, IEngine, ISpaceship, SpaceShipFactory} from '@algotec/spaceship-parts';
 import {Cords, ShipWithPosition} from '../planets/common/common.types';
 import {delay} from 'rxjs/operators';
@@ -11,11 +11,25 @@ const basePlanetPos: Omit<ShipWithPosition, 'ship'> = {anchorPlanet: 'Earth', mo
   providedIn: 'root'
 })
 export class SpaceshipsService {
-  constructor(private notificationService:NotificationsService) {
+  private _myShips: ShipWithPosition[] = [];
+  private myShipsSubject: BehaviorSubject<ShipWithPosition[]> = new BehaviorSubject<ShipWithPosition[]>(this._myShips);
+  public myShips$ = this.myShipsSubject.asObservable();
+
+  private get myShips(): ShipWithPosition[] {
+    return this._myShips;
+  }
+
+  private set myShips(value: ShipWithPosition[]) {
+    this.myShipsSubject.next(value);
+    this._myShips = value;
+  }
+
+  constructor(private notificationService: NotificationsService) {
 
   }
+
   shipsAvailable$: Observable<{ [key: string]: SpaceShipFactory<any> }> = of({Enterprise, Appolo, Genesis});
-  private myShips: ShipWithPosition[] = [];
+
 
   constructSpaceShip<T extends ISpaceship>(spaceship: SpaceShipFactory<T>, engine?: IEngine): Promise<T> {
     const removeNotification = this.notificationService.notify('Ship under construction...');
@@ -24,20 +38,20 @@ export class SpaceshipsService {
     return of<T>(ship).pipe(delay(complexity * 2000)).toPromise()
       .then((ship) => {
         removeNotification();
-        this.myShips.push({ship: ship as ISpaceship, ...basePlanetPos});
+        this.myShips = [...this.myShips, {ship: ship as ISpaceship, ...basePlanetPos}];
         return ship;
       });
   }
 
   getShip(shipId: number): ISpaceship | undefined {
-    const shipWithPosition = this.myShips[shipId];
+    const shipWithPosition = this._myShips[shipId];
     if (shipWithPosition) {
       return shipWithPosition.ship
     }
   }
 
   private _getShip(shipOrId: number | ISpaceship) {
-    return (typeof shipOrId === 'number') ? this.myShips[shipOrId] : this.myShips.find(shipsDesc => shipsDesc.ship === shipOrId);
+    return (typeof shipOrId === 'number') ? this._myShips[shipOrId] : this._myShips.find(shipsDesc => shipsDesc.ship === shipOrId);
   }
 
   getPosition(shipOrId: number | ISpaceship): { move: Cords; anchorPlanet: string } {

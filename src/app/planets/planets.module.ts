@@ -8,6 +8,7 @@ import {planetRouteData} from './common/common.types';
 import {PlanetVisitFormComponent} from './planet-visit/planet-visit-form/planet-visit-form.component';
 import {SharedModule} from '../shared/shared.module';
 import {HeadquartersComponent} from './headquarters/headquarters.component';
+import {SpaceshipsModule} from '../spaceships/spaceships.module';
 
 
 const planetRoutes: Routes = [
@@ -22,7 +23,8 @@ const planetRoutes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(planetRoutes)
+    RouterModule.forChild(planetRoutes),
+    SpaceshipsModule
   ]
 })
 export class PlanetsModule {}
