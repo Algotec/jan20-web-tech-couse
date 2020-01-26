@@ -19,7 +19,7 @@ import {fromPromise} from 'rxjs/internal-compatibility';
     </div>
     <button (click)="save()">Save</button>
     <button (click)="cancel()">Cancel</button>
-    <img src="img/monster/{{_monster.id}}.png" />
+    <img src="assets/img/monster/{{_monster.id}}.png" />
     <button (click)="gotoNext()">Go To Next montster</button>
   </div>
   `,

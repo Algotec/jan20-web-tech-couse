@@ -5,7 +5,7 @@ import {Component, OnInit} from '@angular/core';
         <style>section{text-align:center}</style>
         <section>
             <h1>Admin Page</h1>
-            <img src="img/admin.png">
+            <img src="/assets/img/admin.png">
         </section>
     `
 })
