@@ -9,10 +9,11 @@ import {SharedModule} from './shared/shared.module';
 import {BrowserModule} from '@angular/platform-browser';
 
 import { ToastrModule } from 'ngx-toastr';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
-	imports: [BrowserModule, RouterModule.forRoot(routes),MonsterModule, ChatModule, SharedModule,ToastrModule.forRoot()],       // module dependencies
+	imports: [BrowserModule, BrowserAnimationsModule,RouterModule.forRoot(routes),MonsterModule, ChatModule, SharedModule,ToastrModule.forRoot()],       // module dependencies
 	declarations: [AppComponent, HomeComponent],   // components and directives
 	bootstrap: [AppComponent],     // root component
 })

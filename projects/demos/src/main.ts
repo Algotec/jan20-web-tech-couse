@@ -16,7 +16,7 @@
 // import "./day2/lifecycle/main";
 // import "./day2/090-ObservableDataServices/main";
 // import "./day2/Directives/010-CustomDirectives/main";
-import "./day2/Directives/015-refToViewChildren/main";
+// import "./day2/Directives/015-refToViewChildren/main";
 // import "./day2/Directives/016-refToContentChildren/main";
 // import "./day2/Directives/050-Collapse-ContentProjection/main";
 // import "./day2/Directives/055-Tabs-ContentProjection/main";
@@ -45,7 +45,7 @@ import "./day2/Directives/015-refToViewChildren/main";
 /**********
  Day3 - Routing
  *********/
-// import './day3/monstersAndChat/main';
+import './day3/monstersAndChat/main';
 // import "./day2/routing-monsters/main";
 
 /**********

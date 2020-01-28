@@ -27,7 +27,7 @@ var corsOptions = {
 const serverRoot = 'http://localhost:3003/';
 const baseUrl = serverRoot + 'data';
 
-// app.use(express.static('uploads'));
+app.use(express.static('uploads'));
 
 
 app.use(cors(corsOptions));
@@ -171,9 +171,9 @@ app.post('/data/:objType', upload.single('file'), function (req, res) {
 		}
 	}
 	// If there is a file upload, add the url to the obj
-	// if (req.file) {
-	// 	obj.imgUrl = serverRoot + req.file.filename;
-	// }
+	if (req.file) {
+		obj.imgUrl = serverRoot + req.file.filename;
+	}
 
 
 
