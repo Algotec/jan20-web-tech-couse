@@ -1,3 +1,7 @@
-<label>Sign your name</label>
-<input #nameInput type="text" (input)="onInput($event.target.value)" (keydown.enter)="onEnter($event.target.value)"/>
+<div style="width:200px">
+  <app-trendy-input>
+    <label>Sign your name</label>
+    <input #nameInput type="text" (input)="onInput($event.target.value)" (keydown.enter)="onEnter($event.target.value)"/>
+  </app-trendy-input>
+</div>
 <button class="nav-button" (click)="onEnter(nameInput.value)">Sign</button>
