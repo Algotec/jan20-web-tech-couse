@@ -80,8 +80,8 @@ export class LiquidNitrogenFuelSupply implements IFuelSupply {
   }
 
   onFuelEnd = (callback: handlerCallback) => {
-    // add the notifing function to our private state
-    const index = this.fuelEndCallbacks.push(callback);
+    // add the notifying function to our private state
+    const index = (this.fuelEndCallbacks.push(callback)) - 1;
     return () => {
       this.fuelEndCallbacks.splice(index);
     }

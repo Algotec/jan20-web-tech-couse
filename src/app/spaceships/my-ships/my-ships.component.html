@@ -1,5 +1,6 @@
 <section class="wrapper">
-  <div *ngFor="let ship of ships;let i =index" class="spaceship-box">
-    <app-spaceship-image [ship]="ship.name" draggable="true" (dragend)="spaceShipDragEnd($event)"  (dragstart)="spaceShipDragStart($event,i.toString())"></app-spaceship-image>
+  <div *ngFor="let ship of ships|keyvalue" class="spaceship-box">
+    <app-spaceship-image [ship]="ship.value.name" draggable="true" (dragend)="spaceShipDragEnd($event)"
+                         (dragstart)="spaceShipDragStart($event,ship.key)"></app-spaceship-image>
   </div>
 </section>

@@ -86,7 +86,8 @@ export class SpaceshipsService {
 
   }
 
-  onFuelEnd(shipId: number) {
+  onFuelEnd(shipId: number|string) {
+    shipId = +shipId; // cast to number;
     const stopNotify = this.notificationService.notify('spaceship lost!');
     this.myShips = [...this.myShips.slice(0, shipId), ...this.myShips.slice(shipId + 1)];
     setTimeout(stopNotify, 5000);

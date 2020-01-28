@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import {basePlanetPos, SpaceshipsService} from '../../spaceships/spaceships.service';
 import {map} from 'rxjs/operators';
 import {Router} from '@angular/router';
-import { ISpaceship } from '@algotec/spaceship-parts';
+import {ISpaceship} from '@algotec/spaceship-parts';
 
 @Component({
   selector: 'app-planets-view',
@@ -17,14 +17,14 @@ export class PlanetsViewComponent implements OnInit {
   planets: Observable<IPlanetData[]> = this.planetsService.getAll();
   myShips$ = this.spaceshipsSvc.myShips$.pipe(
     map(shipWithposArr => shipWithposArr
-      .reduce((acc,shipWithPos) => {
+      .reduce((acc, shipWithPos, index: number) => {
         // group the ships by the anchorPlanet
-          const planetShips = acc[shipWithPos.anchorPlanet] ? acc[shipWithPos.anchorPlanet] : [];
-          acc[shipWithPos.anchorPlanet] = [...planetShips,shipWithPos.ship];
+        const planetShips = acc[shipWithPos.anchorPlanet] ? acc[shipWithPos.anchorPlanet] : {};
+        acc[shipWithPos.anchorPlanet] = {[index]: shipWithPos.ship, ...planetShips};
         return acc
-      },{} as {[key:string]:ISpaceship[]}) //only on earth
-      )); // we only need the ship
-  private fromPlanet: string ='';
+      }, {} as { [key: string]: { [shipId: number]: ISpaceship } }) //only on earth
+    )); // we only need the ship
+  private fromPlanet: string = '';
 
   constructor(private planetsService: PlanetsService, private spaceshipsSvc: SpaceshipsService, private router: Router) {
   }
@@ -33,8 +33,9 @@ export class PlanetsViewComponent implements OnInit {
     $event.preventDefault();
     let ship = $event.dataTransfer.getData("text");
     console.log($event, planet, ship);
-    if (this.fromPlanet !== planet){
-      this.router.navigate(['journey', ship, 'from', this.fromPlanet, 'to', planet])}
+    if (this.fromPlanet !== planet) {
+      this.router.navigate(['journey', ship, 'from', this.fromPlanet, 'to', planet])
+    }
   };
 
   onDragOver($event: DragEvent, planet: string) {
@@ -49,9 +50,11 @@ export class PlanetsViewComponent implements OnInit {
     this.boxOnPlanet = '';
 
   }
-  onDragStart(fromPlanet:string){
+
+  onDragStart(fromPlanet: string) {
     this.fromPlanet = fromPlanet;
   }
+
   ngOnInit() {
   }
 

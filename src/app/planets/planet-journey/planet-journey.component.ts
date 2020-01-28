@@ -23,7 +23,7 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
   private removeFuelEndHandler: removeHandlerCallback;
 
   get journeyComplete() {
-    return this.ship.engine.fuelSupply.fuelLeft === 0 || this.currentLeft === this.destinationLeft;
+    return this.ship.engine.fuelSupply.fuelLeft === 0 || this.initialShipPos + this.currentLeft >= this.destinationLeft;
   }
 
   constructor(private activatedRoute: ActivatedRoute, private spaceshipsSvc: SpaceshipsService, private router: Router) {
@@ -49,7 +49,7 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
   moveRight() {
     if (this.ship.engine.started) {
       if ((this.initialShipPos + this.currentLeft) < this.destinationLeft) {
-        let distance
+        let distance;
         if (this.fromPlanet.distance === 0 || this.destination.distance === 0) {
           distance = this.fromPlanet.distance + this.destination.distance;
         } else {
@@ -76,7 +76,6 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
   }
 
   private async destinationReached() {
-    this.initialShipPos = this.destinationLeft;
     this.spaceshipsSvc.setPosition(this.shipID, this.destination.name);
     await this.ship.engine.stop();
     if (this.destination.name === 'Earth') {

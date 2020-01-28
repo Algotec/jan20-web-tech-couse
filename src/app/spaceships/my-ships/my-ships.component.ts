@@ -7,7 +7,7 @@ import {ISpaceship} from '@algotec/spaceship-parts';
   styleUrls: ['./my-ships.component.scss']
 })
 export class MyShipsComponent implements OnInit {
-  @Input() ships: ISpaceship[];
+  @Input() ships: {[shipID:number]:ISpaceship};
 
   constructor() {
   }
