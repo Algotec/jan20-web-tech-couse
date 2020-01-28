@@ -22,3 +22,15 @@ export interface ShipWithPosition {
   anchorPlanet: string;
   move: Cords;
 }
+
+export interface IPlanetSample {
+  label: string;
+  weight: number;
+  cords: Cords | string;
+}
+
+export interface IPlanetFormData {
+  astronautName: string;
+  date: string;
+  samples: IPlanetSample[];
+}

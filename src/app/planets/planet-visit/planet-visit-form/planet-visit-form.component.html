@@ -1,45 +1,46 @@
-<form>
+<form #f="ngForm" (ngSubmit)="formSubmit(f)">
   <app-trendy-input>
     <label for="name">Name:</label>
-    <input id="name" type="text">
-    <p class="warning" *ngIf="0">Name is required </p>
+    <input id="name" type="text" name="astronautName" [(ngModel)]="formData.astronautName" required #name="ngModel">
+    <p class="warning" *ngIf="name.touched && name.hasError('required')">Name is required </p>
   </app-trendy-input>
   <app-trendy-input>
     <label for="date">Date:</label>
-    <input id="date" type="date">
+    <input id="date" type="date" name="date" [(ngModel)]="formData.date" required #date="ngModel">
+    <p class="warning" *ngIf="date.touched && date.hasError('required')">Date is required </p>
   </app-trendy-input>
   <section class="samples-wrapper">
     <h5> Samples
       <p class="warning blink" *ngIf="false">Samples overweight!!</p>
-      <button class="nav-button small">+</button>
+      <button class="nav-button small" (click)="addSample()">+</button>
     </h5>
-    <section>
-      <section class="sample" *ngFor="let sample of []; index as index ; first as isFirst">
+    <section ngModelGroup="samples">
+      <section class="sample" *ngFor="let sample of formData.samples; index as index ; first as isFirst" [ngModelGroup]="index">
         <ng-container *ngIf="!isFirst">
-          <button class="nav-button small">-</button>
+          <button class="nav-button small" (click)="removeSample(index)">-</button>
           <span class="small-text">drop sample</span>
         </ng-container>
         <div>
           <app-trendy-input>
             <label>Position:</label>
-            <input type="text"/>
-            <span class="warning small-text" *ngIf="0">Cords must be entered</span>
-            <span class="warning small-text" *ngIf="0">Cords must be entered in format lat,lang</span>
+            <input type="text" #cords="ngModel" [ngModel]="sample.cords" name="cords" required pattern="\d+,\d+"/>
+            <span class="warning small-text" *ngIf="cords.touched && cords.hasError('required')">Cords must be entered</span>
+            <span class="warning small-text" *ngIf="cords.touched && cords.hasError('pattern')">Cords must be entered in format lat,lang</span>
           </app-trendy-input>
           <app-trendy-input>
             <label>Sample Label:</label>
-            <input type="text"/>
-            <span class="warning small-text" *ngIf="0">Label must be entered</span>
-            <span class="warning small-text" *ngIf="0">Label must be at least ... letters long</span>
+            <input type="text" #label="ngModel" [ngModel]="sample.label" required minlength="3" name="label"/>
+            <span class="warning small-text" *ngIf="label.touched && label.hasError('required')">Label must be entered</span>
+            <span class="warning small-text" *ngIf="label.touched && label.hasError('minlength')">Label must be at least 3 letters long</span>
           </app-trendy-input>
           <app-trendy-input>
-            <label>weight </label>
-            <button class="weighBtn" *ngIf="0" (click)="0">Weigh Sample</button>
-            <input type="text" readonly/>
+            <label>weight</label>
+            <button class="nav-button weighBtn" *ngIf="!sample.weight" (click)="weigh(sample)">Weigh Sample</button>
+            <input type="text" required name="weight" [ngModel]="sample.weight" readonly/>
           </app-trendy-input>
         </div>
       </section>
     </section>
   </section>
-  <button class="nav-button" [disabled]="false" (click)="0">Submit and return home</button>
+  <button type="submit" class="nav-button" [disabled]="false" (click)="0">Submit and return home</button>
 </form>
