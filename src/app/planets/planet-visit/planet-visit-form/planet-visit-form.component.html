@@ -1,7 +1,45 @@
-<div style="width:200px">
+<form>
   <app-trendy-input>
-    <label>Sign your name</label>
-    <input #nameInput type="text" (input)="onInput($event.target.value)" (keydown.enter)="onEnter($event.target.value)"/>
+    <label for="name">Name:</label>
+    <input id="name" type="text">
+    <p class="warning" *ngIf="0">Name is required </p>
   </app-trendy-input>
-</div>
-<button class="nav-button" (click)="onEnter(nameInput.value)">Sign</button>
+  <app-trendy-input>
+    <label for="date">Date:</label>
+    <input id="date" type="date">
+  </app-trendy-input>
+  <section class="samples-wrapper">
+    <h5> Samples
+      <p class="warning blink" *ngIf="false">Samples overweight!!</p>
+      <button class="nav-button small">+</button>
+    </h5>
+    <section>
+      <section class="sample" *ngFor="let sample of []; index as index ; first as isFirst">
+        <ng-container *ngIf="!isFirst">
+          <button class="nav-button small">-</button>
+          <span class="small-text">drop sample</span>
+        </ng-container>
+        <div>
+          <app-trendy-input>
+            <label>Position:</label>
+            <input type="text"/>
+            <span class="warning small-text" *ngIf="0">Cords must be entered</span>
+            <span class="warning small-text" *ngIf="0">Cords must be entered in format lat,lang</span>
+          </app-trendy-input>
+          <app-trendy-input>
+            <label>Sample Label:</label>
+            <input type="text"/>
+            <span class="warning small-text" *ngIf="0">Label must be entered</span>
+            <span class="warning small-text" *ngIf="0">Label must be at least ... letters long</span>
+          </app-trendy-input>
+          <app-trendy-input>
+            <label>weight </label>
+            <button class="weighBtn" *ngIf="0" (click)="0">Weigh Sample</button>
+            <input type="text" readonly/>
+          </app-trendy-input>
+        </div>
+      </section>
+    </section>
+  </section>
+  <button class="nav-button" [disabled]="false" (click)="0">Submit and return home</button>
+</form>
