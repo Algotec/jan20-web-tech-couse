@@ -1,5 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {IPlanetFormData} from '../../common/common.types';
+import {IPlanetFormData, IPlanetSample, IPlanetTemplateFormData} from '../../common/common.types';
+
+function getEmptySample(): IPlanetSample {
+  return {label: '', weight: null, cords: ""};
+}
 
 @Component({
   selector: 'app-planet-visit-form',
@@ -12,7 +16,7 @@ export class PlanetVisitFormComponent implements OnInit {
   formData: IPlanetFormData = {
     astronautName: '',
     date: new Date().toISOString().split('T')[0],
-    samples: []
+    samples: [getEmptySample()]
   };
 
 
@@ -35,15 +39,17 @@ export class PlanetVisitFormComponent implements OnInit {
   }
 
   addSample() {
-    this.formData.samples.push({label: '', weight: null, cords: ""});
+    this.formData.samples.push(getEmptySample());
   }
 
-  formSubmit($event: any) {
-    console.log($event);
+  formSubmit(planetTemplateFormData: IPlanetTemplateFormData) {
+    this.formData.samples = this.formData.samples.map((sample, index) => {
+      return {...sample, ...planetTemplateFormData.samples[index],}
+    });
+    console.log(this.formData);
   }
 
   weigh(sample) {
-    const weight = (Math.random() * 100).toFixed(2);
-    sample.weight = weight;
+    sample.weight = +((Math.random() * 100).toFixed(2));
   }
 }

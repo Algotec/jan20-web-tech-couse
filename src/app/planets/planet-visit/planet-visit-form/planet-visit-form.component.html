@@ -1,4 +1,4 @@
-<form #f="ngForm" (ngSubmit)="formSubmit(f)">
+<form #f="ngForm">
   <app-trendy-input>
     <label for="name">Name:</label>
     <input id="name" type="text" name="astronautName" [(ngModel)]="formData.astronautName" required #name="ngModel">
@@ -42,5 +42,5 @@
       </section>
     </section>
   </section>
-  <button type="submit" class="nav-button" [disabled]="false" (click)="0">Submit and return home</button>
+  <button type="submit" class="nav-button" [disabled]="f.invalid" (click)="formSubmit(f.value)">Submit and return home</button>
 </form>
