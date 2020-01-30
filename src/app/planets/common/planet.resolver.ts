@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from '@angular/router';
 import {destinationPlanetRouteData, fromPlanetRouteData, IPlanetData} from './common.types';
-import {Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
 import {PlanetsService} from './planets.service';
 
 export abstract class PlanetResolver implements Resolve<IPlanetData> {

@@ -81,7 +81,7 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
     if (this.destination.name === 'Earth') {
       await this.router.navigate(['planets']);
     } else {
-      await this.router.navigate(['planet', this.destination.name], {queryParams: {ship: this.shipID}});
+      await this.router.navigate(['ship',this.shipID,'visit-to', this.destination.name]);
     }
   }
 

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IPlanetFormData, IPlanetSample, IPlanetTemplateFormData} from '../../common/common.types';
 
 function getEmptySample(): IPlanetSample {
@@ -11,7 +11,8 @@ function getEmptySample(): IPlanetSample {
   styleUrls: ['./planet-visit-form.component.scss']
 })
 export class PlanetVisitFormComponent implements OnInit {
-  @Output() sign = new EventEmitter<string>();
+  @Input() maxLoad: number;
+  @Output() formSubmit = new EventEmitter<IPlanetFormData>();
   @Output() currentName = new EventEmitter<string>();
   formData: IPlanetFormData = {
     astronautName: '',
@@ -26,14 +27,6 @@ export class PlanetVisitFormComponent implements OnInit {
   ngOnInit() {
   }
 
-  onInput(name: string) {
-    this.currentName.emit(name);
-  }
-
-  onEnter(name: string) {
-    this.sign.emit(name);
-  }
-
   removeSample(index: number) {
     this.formData.samples.splice(index);
   }
@@ -42,11 +35,11 @@ export class PlanetVisitFormComponent implements OnInit {
     this.formData.samples.push(getEmptySample());
   }
 
-  formSubmit(planetTemplateFormData: IPlanetTemplateFormData) {
+  onFormSubmitClick(planetTemplateFormData: IPlanetTemplateFormData) {
     this.formData.samples = this.formData.samples.map((sample, index) => {
       return {...sample, ...planetTemplateFormData.samples[index],}
     });
-    console.log(this.formData);
+    this.formSubmit.emit(this.formData)
   }
 
   weigh(sample) {

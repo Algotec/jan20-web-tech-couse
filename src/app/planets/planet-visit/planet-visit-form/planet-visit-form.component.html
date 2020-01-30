@@ -1,7 +1,7 @@
 <form #f="ngForm">
   <app-trendy-input>
     <label for="name">Name:</label>
-    <input id="name" type="text" name="astronautName" [(ngModel)]="formData.astronautName" required #name="ngModel">
+    <input id="name" type="text" name="astronautName" (ngModelChange)="currentName.emit(name.value)" [(ngModel)]="formData.astronautName" required #name="ngModel">
     <p class="warning" *ngIf="name.touched && name.hasError('required')">Name is required </p>
   </app-trendy-input>
   <app-trendy-input>
@@ -42,5 +42,5 @@
       </section>
     </section>
   </section>
-  <button type="submit" class="nav-button" [disabled]="f.invalid" (click)="formSubmit(f.value)">Submit and return home</button>
+  <button type="submit" class="nav-button" [disabled]="f.invalid" (click)="onFormSubmitClick(f.value)">Submit and return home</button>
 </form>

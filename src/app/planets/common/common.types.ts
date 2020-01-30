@@ -1,6 +1,5 @@
 import {ISpaceship} from '@algotec/spaceship-parts';
 
-export const planetRouteData = 'planetName';
 export const destinationPlanetRouteData = 'toPlanetName';
 export const fromPlanetRouteData = 'fromPlanetName';
 export const shipRouteData = 'ship';
