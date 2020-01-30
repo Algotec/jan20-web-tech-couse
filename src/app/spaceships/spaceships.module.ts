@@ -5,12 +5,13 @@ import {SpaceshipsMarketContainer} from './spaceships-market-container/spaceship
 import {SharedModule} from '../shared/shared.module';
 import {MyShipsComponent} from './my-ships/my-ships.component';
 import {SpaceshipImageComponent} from './spaceship-image/spaceship-image.component';
+import { PlanetShipsContainerComponent } from './my-ships/planet-ships-container.component';
 
 const spaceshipRoutes: Routes = [{path: 'spaceships', component: SpaceshipsMarketContainer}];
 
 @NgModule({
-  declarations: [SpaceshipsMarketComponent, SpaceshipsMarketContainer, MyShipsComponent, SpaceshipImageComponent],
-  exports: [SpaceshipsMarketContainer, MyShipsComponent, SpaceshipImageComponent],
+  declarations: [SpaceshipsMarketComponent, SpaceshipsMarketContainer, MyShipsComponent, SpaceshipImageComponent, PlanetShipsContainerComponent],
+	exports: [SpaceshipsMarketContainer, MyShipsComponent, SpaceshipImageComponent, PlanetShipsContainerComponent],
   imports: [
     SharedModule,
     RouterModule.forChild(spaceshipRoutes)

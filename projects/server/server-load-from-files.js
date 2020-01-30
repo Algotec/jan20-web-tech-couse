@@ -43,8 +43,8 @@ app.use(bodyParser.json());
 
 
 // uncomment here and blelow to activate socket
-// const http = require('http').Server(app);
-// const io = require('socket.io')(http);
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
 
 // GETs a list
 app.get('/data/:objType', function (req, res) {
@@ -72,7 +72,7 @@ app.delete('/data/:objType/:id', function (req, res) {
 	res.json({});
 });
 
-// POST - adds 
+// POST - adds
 
 app.post('/data/:objType', upload.single('file'), function (req, res) {
 	cl("POST for " + req.params.objType);
@@ -102,7 +102,7 @@ app.put('/data/:objType/:id', function (req, res) {
 });
 
 const PORT = 3003;
-// Kickup our server 
+// Kickup our server
 const baseUrl = `http://localhost:${PORT}/data`;
 app.listen(PORT, function () {
 	console.log(`misterREST server is ready at ${baseUrl}`);
@@ -146,13 +146,13 @@ function findNextId()
     return text;
 }
 
-// io.on('connection', function (socket) {
-// 	console.log('a user connected');
-// 	socket.on('disconnect', function () {
-// 		console.log('user disconnected');
-// 	});
-// 	socket.on('chat message', function (msg) {
-// 		// console.log('message: ' + msg);
-// 		io.emit('chat message', msg);
-// 	});
-// });
+io.on('connection', function (socket) {
+	console.log('a user connected');
+	socket.on('disconnect', function () {
+		console.log('user disconnected');
+	});
+	socket.on('chat message', function (msg) {
+		// console.log('message: ' + msg);
+		io.emit('chat message', msg);
+	});
+});

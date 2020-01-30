@@ -15,15 +15,6 @@ import {ISpaceship} from '@algotec/spaceship-parts';
 export class PlanetsViewComponent implements OnInit {
   boxOnPlanet: string;
   planets: Observable<IPlanetData[]> = this.planetsService.getAll();
-  myShips$ = this.spaceshipsSvc.myShips$.pipe(
-    map(shipWithposArr => shipWithposArr
-      .reduce((acc, shipWithPos, index: number) => {
-        // group the ships by the anchorPlanet
-        const planetShips = acc[shipWithPos.anchorPlanet] ? acc[shipWithPos.anchorPlanet] : {};
-        acc[shipWithPos.anchorPlanet] = {[index]: shipWithPos.ship, ...planetShips};
-        return acc
-      }, {} as { [key: string]: { [shipId: number]: ISpaceship } }) //only on earth
-    )); // we only need the ship
   private fromPlanet: string = '';
 
   constructor(private planetsService: PlanetsService, private spaceshipsSvc: SpaceshipsService, private router: Router) {

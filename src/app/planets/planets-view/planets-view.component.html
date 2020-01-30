@@ -1,13 +1,13 @@
 <h2 class="section-label">Space Travels Overview</h2>
-<section class="travelbox" *ngIf="myShips$|async as shipsByPlanets">
+<section class="travelbox">
   <div class="earth-container">
     <app-planet (drop)="onDrop($event,'Earth')" (dragleave)="onDragLeave($event,'Earth')" (dragover)="onDragOver($event,'Earth')" [showBox]="false"
                 [routerLink]="['/planet','Earth']" [planet]="{name:'Earth'}"></app-planet>
-    <app-my-ships [ships]="shipsByPlanets['Earth']" (dragstart)="onDragStart('Earth')"></app-my-ships>
+    <app-planet-ships-container [planet]="'Earth'" (dragstart)="onDragStart('Earth')"></app-planet-ships-container>
   </div>
   <div class="planets-container">
     <div class="planet-container" *ngFor="let planet of planets|async">
-      <app-my-ships [ships]="shipsByPlanets[planet.name]" (dragstart)="onDragStart(planet.name)"></app-my-ships>
+      <app-planet-ships-container [planet]="planet.name" (dragstart)="onDragStart('Earth')"></app-planet-ships-container>
       <app-planet (drop)="onDrop($event,planet.name)" (dragleave)="onDragLeave($event,planet.name)" (dragover)="onDragOver($event,planet.name)"
                   [showBox]="boxOnPlanet === planet.name"
                   [planet]="planet">

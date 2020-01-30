@@ -18,6 +18,7 @@ import {FormsModule} from "@angular/forms";
   templateUrl: 'form.html',
 })
 class AppComponent {
+  user = {}
   log = console.log;
 }
 
