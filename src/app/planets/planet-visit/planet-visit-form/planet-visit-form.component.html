@@ -1,24 +1,23 @@
 <p>Ship load {{currentLoad}}/{{maxLoad}}</p>
-<p class="warning" *ngIf="samplesGroup.hasError('samplesWeight')">Overweight!!!</p>
-<form #f="ngForm">
+<p class="warning" *ngIf="samplesArray.hasError('maxWeight')">Overweight!!!</p>
+<form [formGroup]="formControls">
   <app-trendy-input>
     <label for="name">Name:</label>
-    <input id="name" type="text" name="astronautName" (ngModelChange)="currentName.emit(name.value)" [(ngModel)]="formData.astronautName" required
-           #name="ngModel">
-    <p class="warning" *ngIf="name.touched && name.hasError('required')">Name is required </p>
+    <input id="name" type="text" formControlName="astronautName" required>
+    <span class="warning small-text"
+          *ngIf="formControls.get('astronautName').touched && formControls.hasError('required','astronautName')">Name is required</span>
   </app-trendy-input>
   <app-trendy-input>
     <label for="date">Date:</label>
-    <input id="date" type="date" name="date" [(ngModel)]="formData.date" required #date="ngModel">
-    <p class="warning" *ngIf="date.touched && date.hasError('required')">Date is required </p>
+    <input id="date" type="date" formControlName="date" [value]="formControls.get('date').value|date:'yyyy-MM-dd'" required>
   </app-trendy-input>
   <section class="samples-wrapper">
     <h5> Samples
-      <p class="warning blink" *ngIf="false">Samples overweight!!</p>
+      <p class="warning blink" *ngIf="samplesArray.hasError('maxWeight')">Samples overweight!!</p>
       <button class="nav-button small" (click)="addSample()">+</button>
     </h5>
-    <section #samplesGroup="ngModelGroup" ngModelGroup="samples" [samplesWeight]="maxLoad">
-      <section class="sample" *ngFor="let sample of formData.samples; index as index ; first as isFirst" [ngModelGroup]="index">
+    <section formArrayName="samples">
+      <section class="sample" *ngFor="let sample of samplesArray.controls; index as index ; first as isFirst" [formGroup]="sample">
         <ng-container *ngIf="!isFirst">
           <button class="nav-button small" (click)="removeSample(index)">-</button>
           <span class="small-text">drop sample</span>
@@ -26,24 +25,26 @@
         <div>
           <app-trendy-input>
             <label>Position:</label>
-            <input type="text" #cords="ngModel" [ngModel]="sample.cords" name="cords" required pattern="\d+,\d+"/>
-            <span class="warning small-text" *ngIf="cords.touched && cords.hasError('required')">Cords must be entered</span>
-            <span class="warning small-text" *ngIf="cords.touched && cords.hasError('pattern')">Cords must be entered in format lat,lang</span>
+            <input type="text" formControlName="position"/>
+            <span class="warning small-text"
+                  *ngIf="sample.controls.position.touched && sample.hasError('required','position')">Cords must be entered</span>
+            <span class="warning small-text" *ngIf="sample.get('position').touched && sample.hasError('pattern','position')">Cords must be entered in format lat,lang</span>
           </app-trendy-input>
           <app-trendy-input>
             <label>Sample Label:</label>
-            <input type="text" #label="ngModel" [ngModel]="sample.label" required minlength="3" name="label"/>
-            <span class="warning small-text" *ngIf="label.touched && label.hasError('required')">Label must be entered</span>
-            <span class="warning small-text" *ngIf="label.touched && label.hasError('minlength')">Label must be at least 3 letters long</span>
+            <input type="text" formControlName="sampleLabel"/>
+            <span class="warning small-text" *ngIf="sample.get('sampleLabel').touched && sample.hasError('required','sampleLabel')">Label must be entered</span>
+            <span class="warning small-text" *ngIf="sample.get('sampleLabel').touched && sample.hasError('minlength','sampleLabel')">Label must be at least {{sample.getError('minlength', 'sampleLabel').requiredLength}}
+              letters long</span>
           </app-trendy-input>
           <app-trendy-input>
-            <label>weight</label>
-            <button class="nav-button weighBtn" *ngIf="!sample.weight" (click)="weigh(sample)">Weigh Sample</button>
-            <input type="text" required name="weight" [ngModel]="sample.weight" readonly/>
+            <label>weight </label>
+            <button class="nav-button weighBtn" *ngIf="!sample.get('weight').value" (click)="weigh(sample)">Weigh Sample</button>
+            <input type="text" readonly formControlName="weight"/>
           </app-trendy-input>
         </div>
       </section>
     </section>
   </section>
-  <button type="submit" class="nav-button" [disabled]="f.invalid" (click)="onFormSubmitClick(f.value)">Submit and return home</button>
+  <button class="nav-button" [disabled]="formControls.invalid" (click)="onFormSubmitClick()">Submit and return home</button>
 </form>

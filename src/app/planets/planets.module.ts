@@ -14,7 +14,6 @@ import {SpaceshipResolver} from '../spaceships/spaceship.resolver';
 import {DestinationPlanetResolver, FromPlanetResolver} from './common/planet.resolver';
 import {ShipPositionGuard} from '../spaceships/ship.position.guard';
 import {JourneyDeactivationGuard} from './journeyDeactivationGuard';
-import {SamplesWeightValidatorDirective} from './planet-visit/planet-visit-form/samples-weight-validator.directive';
 
 
 const planetRoutes: Routes = [
@@ -43,7 +42,7 @@ const planetRoutes: Routes = [
 
 @NgModule({
   declarations: [PlanetsViewComponent, PlanetJourneyComponent, PlanetComponent, PlanetVisitComponent,
-  PlanetVisitFormComponent, HeadquartersComponent, SamplesWeightValidatorDirective],
+  PlanetVisitFormComponent, HeadquartersComponent],
   exports: [PlanetsViewComponent],
   imports: [
     CommonModule,

@@ -33,8 +33,3 @@ export interface IPlanetFormData {
   date: string;
   samples: IPlanetSample[];
 }
-export interface IPlanetTemplateFormData {
-  astronautName: string;
-  date: string;
-  samples: {[key:number]:IPlanetSample};
-}
