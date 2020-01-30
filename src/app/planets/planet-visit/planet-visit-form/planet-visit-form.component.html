@@ -1,7 +1,10 @@
+<p>Ship load {{currentLoad}}/{{maxLoad}}</p>
+<p class="warning" *ngIf="samplesGroup.hasError('samplesWeight')">Overweight!!!</p>
 <form #f="ngForm">
   <app-trendy-input>
     <label for="name">Name:</label>
-    <input id="name" type="text" name="astronautName" (ngModelChange)="currentName.emit(name.value)" [(ngModel)]="formData.astronautName" required #name="ngModel">
+    <input id="name" type="text" name="astronautName" (ngModelChange)="currentName.emit(name.value)" [(ngModel)]="formData.astronautName" required
+           #name="ngModel">
     <p class="warning" *ngIf="name.touched && name.hasError('required')">Name is required </p>
   </app-trendy-input>
   <app-trendy-input>
@@ -14,7 +17,7 @@
       <p class="warning blink" *ngIf="false">Samples overweight!!</p>
       <button class="nav-button small" (click)="addSample()">+</button>
     </h5>
-    <section ngModelGroup="samples">
+    <section #samplesGroup="ngModelGroup" ngModelGroup="samples" [samplesWeight]="maxLoad">
       <section class="sample" *ngFor="let sample of formData.samples; index as index ; first as isFirst" [ngModelGroup]="index">
         <ng-container *ngIf="!isFirst">
           <button class="nav-button small" (click)="removeSample(index)">-</button>

@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {IPlanetFormData, IPlanetSample, IPlanetTemplateFormData} from '../../common/common.types';
+import {getLoad} from '../../common/planets.service';
 
 function getEmptySample(): IPlanetSample {
   return {label: '', weight: null, cords: ""};
@@ -19,6 +20,10 @@ export class PlanetVisitFormComponent implements OnInit {
     date: new Date().toISOString().split('T')[0],
     samples: [getEmptySample()]
   };
+
+  get currentLoad(): number {
+    return getLoad(this.formData.samples, (sample) => sample.weight || 0);
+  }
 
 
   constructor() {
@@ -44,5 +49,9 @@ export class PlanetVisitFormComponent implements OnInit {
 
   weigh(sample) {
     sample.weight = +((Math.random() * 100).toFixed(2));
+  }
+
+  recalculateLoad($event: any) {
+    console.log($event);
   }
 }
