@@ -42,10 +42,11 @@ describe('SpaceshipsService', () => {
   })
   describe('constructSpaceShip method', () => {
     it('callled with factory it returns a promise for the new Spaceships instance', () => {
-      service.constructSpaceShip(Appolo).then(() => {
-        console.log('not done')
+
+      return service.constructSpaceShip(Appolo).then((ship) => {
+       expect(ship instanceof Appolo).toBeTruthy();
       })
-    })
+    },20*1000)
 
   })
 
