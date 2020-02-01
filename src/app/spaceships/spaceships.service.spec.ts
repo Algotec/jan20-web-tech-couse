@@ -52,11 +52,12 @@ describe('SpaceshipsService', () => {
       tick(6 * 2000);
     }));
 
-    it('calls notification service notify method with Ship under construction message', async(() => {
+    it('calls notification service notify method with Ship under construction message', fakeAsync(() => {
       service.constructSpaceShip(Appolo).then(() => {
         expect(notificationServiceMock.notify).toHaveBeenCalledWith('Ship under construction...')
-      })
-    }),7*2000)
+      });
+      tick(6*2000);
+    }))
   })
 
 
