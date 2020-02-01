@@ -1,6 +1,10 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {PlanetVisitFormComponent} from './planet-visit-form.component';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {RouterTestingModule} from '@angular/router/testing';
+import {SharedModule} from '../../../shared/shared.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 describe('PlanetVisitFormComponent', () => {
   let component: PlanetVisitFormComponent;
@@ -8,9 +12,11 @@ describe('PlanetVisitFormComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PlanetVisitFormComponent ]
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports:[RouterTestingModule.withRoutes([]),ReactiveFormsModule],
+      declarations: [PlanetVisitFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

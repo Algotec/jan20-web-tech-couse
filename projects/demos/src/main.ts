@@ -45,7 +45,7 @@
 /**********
  Day3 - Routing
  *********/
-import './day3/monstersAndChat/main';
+// import './day3/monstersAndChat/main';
 // import "./day2/routing-monsters/main";
 
 /**********
@@ -55,7 +55,7 @@ import './day3/monstersAndChat/main';
  Day4
  *********/
 // import './day4/state/redux-basics/main';
-// import './day4/state/redux_pattern_logout_timer/main';
+import './day4/state/redux_pattern_logout_timer/main';
 // import "./day4/state/modal-component/main";
 
 // import "./day4/state/rxjs-clock/main";

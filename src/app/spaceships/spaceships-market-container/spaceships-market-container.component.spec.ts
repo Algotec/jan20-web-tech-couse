@@ -1,18 +1,18 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SpaceshipsMarketContainer} from './spaceships-market-container.component';
-import {Store, StoreModule} from '@ngrx/store';
-import {SpaceAppState} from '../../common/state/app.state';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('SpaceshipsContainerComponent', () => {
   let component: SpaceshipsMarketContainer;
   let fixture: ComponentFixture<SpaceshipsMarketContainer>;
-  let store: Store<any>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
-      declarations: [ SpaceshipsMarketContainer ]
+      imports: [RouterTestingModule.withRoutes([])],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      declarations: [SpaceshipsMarketContainer]
     });
 
     await TestBed.compileComponents();
@@ -21,9 +21,7 @@ describe('SpaceshipsContainerComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SpaceshipsMarketContainer);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<SpaceAppState>>(Store);
 
-    spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();
   });
 
