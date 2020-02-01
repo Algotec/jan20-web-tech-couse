@@ -1,4 +1,4 @@
-import {TestBed} from '@angular/core/testing';
+import {fakeAsync, flush, flushMicrotasks, TestBed, tick} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing'
 import {SpaceshipsService} from './spaceships.service';
 import {NotificationsService} from '../notifications/notifications.service';
@@ -41,12 +41,12 @@ describe('SpaceshipsService', () => {
     });
   })
   describe('constructSpaceShip method', () => {
-    it('callled with factory it returns a promise for the new Spaceships instance', () => {
-
-      return service.constructSpaceShip(Appolo).then((ship) => {
-       expect(ship instanceof Appolo).toBeTruthy();
-      })
-    },20*1000)
+    it('called with factory it returns a promise for the new Spaceships instance, time is calculated by complexity', fakeAsync(() => {
+      service.constructSpaceShip(Appolo).then((ship) => {
+        expect(ship instanceof Appolo).toBeTruthy();
+      });
+      tick(6 * 2000);
+    }))
 
   })
 
