@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {animationFrameScheduler, fromEvent} from 'rxjs';
 import {map, subscribeOn} from 'rxjs/operators';
-import {BankService} from '../../shared/bank.service';
+import {BankService} from '../../shared/bank/bank.service';
 
 
 @Component({

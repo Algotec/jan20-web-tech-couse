@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SpaceshipsService} from '../spaceships.service';
 import {SpaceShipFactory} from '@algotec/spaceship-parts';
-import {BankService} from '../../shared/bank.service';
+import {BankService} from '../../shared/bank/bank.service';
 
 @Component({
   selector: 'app-spaceships-market-container',

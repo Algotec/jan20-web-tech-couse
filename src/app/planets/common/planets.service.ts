@@ -3,7 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {IPlanetData, IPlanetFormData} from './common.types';
 import {Observable, of} from 'rxjs';
 import {map, shareReplay} from 'rxjs/operators';
-import {BankService} from '../../shared/bank.service';
+import {BankService} from '../../shared/bank/bank.service';
 
 @Injectable({
   providedIn: 'root'
