@@ -7,6 +7,10 @@ import {LayoutModule} from './layout/layout.module';
 import {PlanetsModule} from './planets/planets.module';
 import {HttpClientModule} from '@angular/common/http';
 import {SpaceshipsModule} from './spaceships/spaceships.module';
+import { StoreModule } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
 
 @NgModule({
   declarations: [
@@ -16,7 +20,15 @@ import {SpaceshipsModule} from './spaceships/spaceships.module';
     LayoutModule,PlanetsModule,SpaceshipsModule,
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot(reducers, {
+      metaReducers,
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
+    EffectsModule.forRoot([AppEffects])
   ],
   providers: [],
   bootstrap: [AppComponent]
