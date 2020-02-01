@@ -1,18 +1,22 @@
-import {fakeAsync, flush, flushMicrotasks, TestBed, tick} from '@angular/core/testing';
+import {async, fakeAsync, flush, flushMicrotasks, TestBed, tick} from '@angular/core/testing';
 import {RouterTestingModule} from '@angular/router/testing'
 import {SpaceshipsService} from './spaceships.service';
 import {NotificationsService} from '../notifications/notifications.service';
 import {Appolo} from '@algotec/spaceship-parts';
 
-const notificationServiceMock: Partial<NotificationsService> = {
-  notify(text: string): () => (Error | null) {
-    return () => null;
-  }
-};
+
 
 describe('SpaceshipsService', () => {
   let service: SpaceshipsService;
+  let  notificationServiceMock:Partial<NotificationsService>;
   beforeEach(() => {
+     notificationServiceMock = {
+      notify:jasmine.createSpy('notify', (message:string) => {
+        return () => null;
+      }).and.callThrough()
+     };
+
+
     TestBed.configureTestingModule({
       imports: [RouterTestingModule.withRoutes([])],
       providers: [{provide: NotificationsService, useValue: notificationServiceMock}]
@@ -46,8 +50,14 @@ describe('SpaceshipsService', () => {
         expect(ship instanceof Appolo).toBeTruthy();
       });
       tick(6 * 2000);
-    }))
+    }));
 
+    it('calls notification service notify method with Ship under construction message', async(() => {
+      service.constructSpaceShip(Appolo).then(() => {
+        expect(notificationServiceMock.notify).toHaveBeenCalledWith('Ship under construction...')
+      })
+    }),7*2000)
   })
+
 
 });
