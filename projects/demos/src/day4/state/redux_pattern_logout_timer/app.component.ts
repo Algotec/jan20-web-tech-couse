@@ -74,8 +74,8 @@ export class AppComponent {
 		this.store.dispatch({type: INCREMENT, payload: 1});
 	}
 
-	addToCount(kama: number) {
-		this.store.dispatch({type: INCREMENT, payload: kama});
+	addToCount(kama: string) {
+		this.store.dispatch({type: INCREMENT, payload: +kama});
 	}
 
 	login() {

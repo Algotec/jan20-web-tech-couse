@@ -54,8 +54,8 @@
 /**********
  Day4
  *********/
-// import './day4/state/redux-basics/main';
-import './day4/state/redux_pattern_logout_timer/main';
+import './day4/state/redux-basics/main';
+// import './day4/state/redux_pattern_logout_timer/main';
 // import "./day4/state/modal-component/main";
 
 // import "./day4/state/rxjs-clock/main";

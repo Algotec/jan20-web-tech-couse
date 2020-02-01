@@ -2,51 +2,51 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {Component, Inject, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {map} from "rxjs/operators";
+import {map, scan, share, startWith} from "rxjs/operators";
 
 //app.actions.ts
 export enum actions {
-	increment,
-	decrement
+  increment,
+  decrement
 }
 
 //app.component.ts
 @Component({
-	selector: 'app',
-	template: `<span>{{count$ | async}}</span>
+  selector: 'app',
+  template: `<span>{{count}}</span>
   <button (click)="increment()">Increment</button>
   <button (click)="decrement()">Decrement</button>
-	`
+  `
 })
 export class AppComponent {
-	// count: number;
+  count: number;
 
-	count$ = this.store.pipe(map((state: ApplicationState) => state.count));
+  // count$ = this.store.pipe(map((state: ApplicationState) => state.count));
 
-	constructor(@Inject('store') private store) {
-	}
+  constructor(@Inject('store') private store) {
+  }
 
-	ngOnInit() {
-		// this.store.subscribe(state => this.count = state.count);
-	}
+  ngOnInit() {
+    this.store.subscribe(state => this.count = state.count);
+  }
 
-	increment() {
-		this.store.dispatch(actions.increment);
-	}
+  increment() {
+    this.store.dispatch(actions.increment);
+  }
 
-	decrement() {
-		this.store.dispatch(actions.decrement);
-	}
+  decrement() {
+    this.store.dispatch(actions.decrement);
+  }
 
 }
 
 //app.module.ts
 @NgModule({
-	declarations: [AppComponent],
-	imports: [BrowserModule],
-	providers: [{provide: 'store', useValue: createRxStore(appReducer)}], ///////// either use createRxStore(appReducer) or createStore(appReducer) - they
-	// provide with the same API
-	bootstrap: [AppComponent]
+  declarations: [AppComponent],
+  imports: [BrowserModule],
+  providers: [{provide: 'store', useValue: createStore(appReducer)}], ///////// either use createRxStore(appReducer) or createStore(appReducer) - they
+  // provide with the same API
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
@@ -56,89 +56,91 @@ platformBrowserDynamic().bootstrapModule(AppModule);
 
 
 interface ApplicationState {
-	count: number;
+  count: number;
 }
 
 //counter.reducer.ts
 function counterReducer(count: number = 0, action: any) {
-	switch (action) {
-		case actions.increment:
-			return count + 1;
-		case actions.decrement:
-			return count - 1;
-		default:
-			return count;
-	}
+  switch (action) {
+    case actions.increment:
+      return count + 1;
+    case actions.decrement:
+      return count - 1;
+    default:
+      return count;
+  }
 }
 
 //app.reducer.ts
 function appReducer(state: ApplicationState = {count: 0}, action) {
-	console.log("Processing action " + (action.type || actions[action]));
-	let newState: ApplicationState = {
-		count: counterReducer(state.count, action)
-	};
-	console.log('new state ', JSON.stringify(newState));
-	return newState;
+  console.log("Processing action " + (action.type || actions[action]));
+  let newState: ApplicationState = {
+    count: counterReducer(state.count, action)
+  };
+  console.log('new state ', JSON.stringify(newState));
+  return newState;
 
 }
 
 //store.service.ts - option 1 - vanilla javascript implementation - pubSub like...
 function createStore(reducer) {
-	let state = reducer(undefined, {type: "__INIT"});
-	let listeners = [];
+  let state = reducer(undefined, {type: "__INIT"});
+  let listeners = [];
 
-	const getState = () => state;
+  const getState = () => state;
 
-	const dispatch = (action) => {
-		state = reducer(state, action);
-		listeners.forEach(listener => listener(state));
-	};
+  const dispatch = (action) => {
+    state = reducer(state, action);
+    listeners.forEach(listener => listener(state));
+  };
 
-	const subscribe = (listener) => {
-		listeners.push(listener);
-		listener(state);
-		return () => {
-			listeners = listeners.filter(l => l !== listener);
-		};
-	};
+  const subscribe = (listener) => {
+    listeners.push(listener);
+    listener(state);
+    return () => {
+      listeners = listeners.filter(l => l !== listener);
+    };
+  };
 
-	return {getState, dispatch, subscribe};
+  return {getState, dispatch, subscribe};
 }
 
 
 /////////////////////////////////////////////////////////
 //store.service.ts - option 2 - Rxjs Observable based - allows use of all operators and the async pipe...
 interface AppStore extends BehaviorSubject<ApplicationState> {
-	getState(): ApplicationState;
+  getState(): ApplicationState;
 
-	dispatch(v: any): void;
+  dispatch(v: any): void;
 }
 
 export function createRxStore(reducer, initialState?): AppStore {
-	let _dispatcher = new Subject<any>();
-	let appStateObservable: Observable<ApplicationState> =
-		_dispatcher.startWith((initialState) ? initialState : reducer(undefined, {type: "__INIT"}))
-			.scan(reducer, initialState)
-			.share();
+  let _dispatcher = new Subject<any>();
+  const computedInitialState: ApplicationState = (initialState) ? initialState : reducer(undefined, {type: "__INIT"});
+  let appStateObservable: Observable<ApplicationState> =
+    _dispatcher.pipe(
+      startWith(computedInitialState),
+      scan(reducer, initialState),
+      share());
 
-	let store = wrapIntoBehaviorSubject(initialState, appStateObservable);
-	return Object.assign(store, {
-		getState: () => {
-			let state;
-			store.subscribe((current) => { // this runs synchronously
-				state = current;
-			});
-			return state;
-		},
-		dispatch: (v) => {
-			_dispatcher.next(v)
-		}
-	});
+  let store = wrapIntoBehaviorSubject(initialState, appStateObservable);
+  return Object.assign(store, {
+    getState: () => {
+      let state;
+      store.subscribe((current) => { // this runs synchronously
+        state = current;
+      });
+      return state;
+    },
+    dispatch: (v) => {
+      _dispatcher.next(v)
+    }
+  });
 }
 
 function wrapIntoBehaviorSubject(init, obs: Observable<any>) {
-	const res = new BehaviorSubject(init);
-	obs.subscribe(s => res.next(s));
-	return res;
+  const res = new BehaviorSubject(init);
+  obs.subscribe(s => res.next(s));
+  return res;
 }
 
