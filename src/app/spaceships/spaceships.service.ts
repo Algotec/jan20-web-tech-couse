@@ -1,15 +1,15 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
-import {Appolo, Enterprise, Genesis, IEngine, ISpaceship, LiquidNitrogenFuelSupply, RocketEngine, SpaceShipFactory} from '@algotec/spaceship-parts';
+import {Observable, of} from 'rxjs';
+import {Appolo, Enterprise, Genesis, IEngine, ISpaceship, SpaceShipFactory} from '@algotec/spaceship-parts';
 import {Cords, ShipWithPosition} from '../planets/common/common.types';
 import {delay, pluck} from 'rxjs/operators';
 import {NotificationsService} from '../notifications/notifications.service';
 import {Router} from '@angular/router';
-import {spaceshipLost} from '../../../../jan19-web-course/src/app/spaceships/state/spaceship.actions';
+
 import {SpaceAppState} from '../reducers/index';
 import {Store} from '@ngrx/store';
-import {spaceShipsOwnedSelector, spaceShipsWithPositionSelector, spaceShipWithPositionSelector} from './state/spaceships.state';
-import {assignShip} from './state/spaceship.actions';
+import {spaceShipsWithPositionSelector, spaceShipWithPositionSelector} from './state/spaceships.state';
+import {assignShip, spaceshipLost} from './state/spaceship.actions';
 
 export const basePlanetPos: Omit<ShipWithPosition, 'ship'> = {anchorPlanet: 'Earth', move: {x: 0, y: 0}};
 
