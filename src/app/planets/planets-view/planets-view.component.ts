@@ -16,7 +16,7 @@ export class PlanetsViewComponent implements OnInit {
   boxOnPlanet: string;
   planets: Observable<IPlanetData[]> = this.planetsService.getAll();
   myShips$ = this.spaceshipsSvc.myShips$.pipe(
-    map(shipWithposArr => shipWithposArr
+    map(shipWithposArr => Object.values(shipWithposArr)
       .reduce((acc, shipWithPos, index: number) => {
         // group the ships by the anchorPlanet
         const planetShips = acc[shipWithPos.anchorPlanet] ? acc[shipWithPos.anchorPlanet] : {};
@@ -35,6 +35,10 @@ export class PlanetsViewComponent implements OnInit {
     console.log($event, planet, ship);
     if (this.fromPlanet !== planet) {
       this.router.navigate(['journey', ship, 'from', this.fromPlanet, 'to', planet])
+        .then(console.log)
+        .catch((e) => {
+          console.error(e)
+        })
     }
   };
 

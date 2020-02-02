@@ -2,6 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {SpaceshipsService} from '../spaceships.service';
 import {SpaceShipFactory} from '@algotec/spaceship-parts';
 import {BankService} from '../../shared/bank/bank.service';
+import {buySpaceship} from '../state/spaceship.actions';
+import {SpaceAppState} from '../../reducers/index';
+import {Store} from '@ngrx/store';
+import {balanceSelector} from '../../shared/bank/bank.state';
 
 @Component({
   selector: 'app-spaceships-market-container',
@@ -10,18 +14,15 @@ import {BankService} from '../../shared/bank/bank.service';
 })
 export class SpaceshipsMarketContainer implements OnInit {
   shipsAvailable$ = this.spaceShipSvc.shipsAvailable$;
-  balance = this.bankService.balance$;
+  balance$ = this.store.select(balanceSelector);
 
-  constructor(private spaceShipSvc: SpaceshipsService, private bankService: BankService) {
+  constructor(private spaceShipSvc: SpaceshipsService, private store: Store<SpaceAppState>) {
   }
 
   ngOnInit() {
   }
 
   buyShip(spaceship: SpaceShipFactory<any>) {
-    console.log('we had ', this.balance, ' before purchase ');
-    this.bankService.withdraw(spaceship.price);
-    console.log('we paid ', spaceship.price, ' and now have ', this.balance);
-    return this.spaceShipSvc.constructSpaceShip(spaceship);
+    this.store.dispatch(buySpaceship({ship:spaceship}))
   }
 }
