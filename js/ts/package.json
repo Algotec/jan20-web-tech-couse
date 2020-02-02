@@ -5,6 +5,9 @@
   "files": [
     "dist"
   ],
+  "devDependencies": {
+    "typescript": "~3.5.3"
+  },
   "scripts": {
     "build": "tsc -p tsconfig.json"
   },
