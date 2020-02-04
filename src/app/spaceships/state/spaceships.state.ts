@@ -1,5 +1,5 @@
 import {Action, createFeatureSelector, createReducer, createSelector, on} from '@ngrx/store';
-import {IEngine, IFuelSupply, ISpaceship} from 'js/ts/dist/index';
+import {IEngine, IFuelSupply, ISpaceship} from '@algotec/spaceship-parts';
 import {Type} from '@angular/core';
 import {assignShip, buySpaceship, createSpaceshipSuccess, refuelSpaceship, spaceshipLost, unassignShip} from './spaceship.actions';
 import {ShipWithPosition} from '../../planets/common/common.types';
