@@ -22,7 +22,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "src/favicon.ico",
               "src/assets"
@@ -45,7 +45,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -54,6 +53,10 @@
                   "type": "initial",
                   "maximumWarning": "2mb",
                   "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
                 }
               ]
             }
@@ -135,7 +138,7 @@
             "main": "projects/demos/src/main.ts",
             "polyfills": "projects/demos/src/polyfills.ts",
             "tsConfig": "projects/demos/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/demos/src/favicon.ico",
               "projects/demos/src/assets"
@@ -159,7 +162,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -207,8 +209,7 @@
               "projects/demos/src/favicon.ico",
               "projects/demos/src/assets"
             ],
-            "styles": [
-            ],
+            "styles": [],
             "scripts": []
           }
         },
@@ -229,6 +230,7 @@
   },
   "defaultProject": "space-quest",
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   }
 }
