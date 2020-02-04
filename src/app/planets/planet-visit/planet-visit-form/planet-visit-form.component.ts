@@ -30,8 +30,8 @@ export class PlanetVisitFormComponent implements OnInit {
   @Input() maxLoad: number;
   @Output() formSubmit = new EventEmitter<IPlanetFormData>();
   @Output() currentName = new EventEmitter<string>();
-  private formControls: FormGroup;
-  private samplesArray: FormArray;
+  formControls: FormGroup;
+  samplesArray: FormArray;
 
   get currentLoad(): number {
     return getLoad(this.samplesArray.controls, (sample) => sample.value.weight || 0);

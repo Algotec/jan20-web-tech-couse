@@ -10,11 +10,11 @@ import {ISpaceship} from '@algotec/spaceship-parts';
   styleUrls: ['./planet-visit.component.scss']
 })
 export class PlanetVisitComponent implements OnInit {
-  private planet: IPlanetData;
+  planet: IPlanetData;
   astronautName: string;
-  private ship: ISpaceship;
+  ship: ISpaceship;
 
-  constructor(private activatedRoute: ActivatedRoute, private planetsService: PlanetsService,private router:Router) {
+  constructor(private activatedRoute: ActivatedRoute, private planetsService: PlanetsService, private router: Router) {
     this.planet = this.activatedRoute.snapshot.data['planet'];
     this.ship = this.activatedRoute.snapshot.data['ship'];
 
@@ -24,7 +24,7 @@ export class PlanetVisitComponent implements OnInit {
   }
 
   planetFormSubmitted($event: IPlanetFormData) {
-   this.planetsService.addSampleForm(this.planet.name,$event);
-   this.router.navigate(['/planets']);
+    this.planetsService.addSampleForm(this.planet.name, $event);
+    this.router.navigate(['/planets']);
   }
 }

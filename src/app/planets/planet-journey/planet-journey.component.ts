@@ -19,7 +19,7 @@ export class PlanetJourneyComponent implements OnInit, AfterViewInit, OnDestroy 
   private currentLeft: number = 0;
   private initialShipPos: number;
   private shipID: number;
-  private fromPlanet: IPlanetData;
+  fromPlanet: IPlanetData;
   private removeFuelEndHandler: removeHandlerCallback;
 
   get journeyComplete() {
